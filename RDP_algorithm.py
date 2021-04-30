@@ -1,4 +1,5 @@
 import numpy as np
+from copy import deepcopy
 
 
 def order_points(point: tuple):
@@ -7,14 +8,11 @@ def order_points(point: tuple):
     return point[0]
 
 
-class RamerDouglasPeukerAlgorithm(object):
-    # class variable that holds the shared data.
-    # It contains all the points to be plotted.
-    historic_data = None
+class RamerDouglasPeukerAlgorithm:
 
-    def __init__(self, epsilon_error):
+    def __init__(self, epsilon_error, data):
         # contains the data set passed.
-        self.__current_data = []
+        self.__current_data = deepcopy(data)
         self.__result = []
         self.__epsilon_error = epsilon_error
         self.__start_point = None
@@ -36,6 +34,14 @@ class RamerDouglasPeukerAlgorithm(object):
     def end_point(self):
         return self.__end_point
 
+    @property
+    def result(self):
+        return self.__result
+
+    @property
+    def current_data(self):
+        return self.__current_data
+
     def initialize_start_end_points(self):
         self.__start_point, self.__end_point = self.get_extreme_points()
 
@@ -53,31 +59,50 @@ class RamerDouglasPeukerAlgorithm(object):
             # create an exception.
             raise TypeError(self)
 
-    def get_farthest_point(self):
+    def get_farthest_point(self, start, end):
+        """
+            Devuelve el pto más alejado, el indice de este en la lista, el margen a comparar con epsilon.
+        """
         # if none, there is no farthest point, thus the points cannot
         # be reduced. Otherwise, it will return a point.
         farthest_point = None
+        index = -1
+        max_value = -1
         # 1-.) If both, first and last points have the same y coordinates,
         #       use them as the pivot.
         if self.start_point[1] == self.end_point[1]:
-            for point in self.__current_data:
-                if point[1] > self.epsilon_error:
-                    farthest_point = point
+            for i in range(start, end):
+                if (self.current_data[i] is not self.start_point) and (self.current_data[i] is not self.end_point):
+                    height = self.get_height(self.current_data[i])
+                    if height > max_value:
+                        farthest_point = self.current_data[i]
+                        max_value = height
+                        index = i
         else:
             # 2-.) Otherwise, we should get the distant with a Tales teorem.
-            for point in self.__current_data:
-                # get the height of the point.
-                height = self.get_height(point)
-                if abs(point[1] - height) > self.epsilon_error:
-                    farthest_point = point
-        return farthest_point
+            for i in range(start, end):
+                if (self.current_data[i] is not self.start_point) and (self.current_data[i] is not self.end_point):
+                    print('x' * 10)
+                    height = self.get_height(self.current_data[i])
+                    print('x' * 10)
+                    if height > max_value:
+                        farthest_point = self.current_data[i]
+                        max_value = height
+                        index = i
+
+        return farthest_point, index, max_value
 
     def get_height(self, point):
+        print(point)
         height_start_to_end = abs(self.start_point[1] - self.end_point[1])
+        print('h_S_T', height_start_to_end)
         x_distance_between_start_and_end = abs(self.start_point[0] - self.end_point[0])
+        print('x_s_e', x_distance_between_start_and_end)
         x_distance_between_start_point = abs(self.start_point[0] - point[0])
+        print('x_s_p', x_distance_between_start_point)
         ratio = x_distance_between_start_and_end / x_distance_between_start_point
         height_start_to_point = height_start_to_end / ratio
+        print(height_start_to_point)
         return height_start_to_point
 
     def ramer_douglas_peuker_algorithm(self):
@@ -87,17 +112,24 @@ class RamerDouglasPeukerAlgorithm(object):
         self.__result.append(self.start_point)
         self.__result.append(self.end_point)
 
-        point = self.get_farthest_point()
-        while point is not None:
-            self.__result.append(point)
-            point = self.get_farthest_point()
+        start_index = 0
+        end_index = len(self.current_data)
 
+        self.__aux_rdp_algorithm(start_index, end_index)
 
-    @classmethod
-    def place_function(cls):
-        # en principio poder hacer cualquier función que se le pase
-        # como parámetro.
-        cls.historic_data = None
+    def __aux_rdp_algorithm(self, start_index, end_index):
+        print('indices: ', start_index, end_index)
+        point, index, max_diff = self.get_farthest_point(start_index, end_index)
+        print(point, index, max_diff)
+        if point is not None and index != -1 and max_diff != -1:
+            if max_diff < self.epsilon_error:
+                return []
+            else:
+                self.result.append(point)
+            # self.result.append(point)
+                a = self.__aux_rdp_algorithm(start_index, index)
+                b = self.__aux_rdp_algorithm(index, end_index)
+                return a + b
 
     @staticmethod
     def get_points(data: list):
@@ -109,12 +141,6 @@ class RamerDouglasPeukerAlgorithm(object):
         return axis_x, axis_y
 
 
-x = -7
-y = -10
-print('x: ', abs(x - y))
-
-print(10 * np.pi)
-x = np.linspace(0, 10 * np.pi, 100)
-y = np.sin(x)
-print(x)
-print(y)
+test = RamerDouglasPeukerAlgorithm(1, [(1, 1), (2, 3), (4, 7), (4, 5), (6, 5)])
+test.ramer_douglas_peuker_algorithm()
+print(test.result)
