@@ -63,47 +63,68 @@ class RamerDouglasPeukerAlgorithm:
         """
             Devuelve el pto más alejado, el indice de este en la lista, el margen a comparar con epsilon.
         """
+        # if abs(start - end) != 0:
         # if none, there is no farthest point, thus the points cannot
         # be reduced. Otherwise, it will return a point.
-        farthest_point = None
+        # farthest_point = None
         index = -1
         max_value = -1
         # 1-.) If both, first and last points have the same y coordinates,
         #       use them as the pivot.
         if self.start_point[1] == self.end_point[1]:
-            for i in range(start, end):
+            for i in range(start+1, end):
+                # print(self.current_data[i])
                 if (self.current_data[i] is not self.start_point) and (self.current_data[i] is not self.end_point):
-                    height = self.get_height(self.current_data[i])
+                    height = self.get_height(self.current_data[i], start, end)
+                    # print(height)
                     if height > max_value:
-                        farthest_point = self.current_data[i]
+                        # farthest_point = self.current_data[i]
                         max_value = height
                         index = i
         else:
             # 2-.) Otherwise, we should get the distant with a Tales teorem.
-            for i in range(start, end):
+            for i in range(start+1, end):
                 if (self.current_data[i] is not self.start_point) and (self.current_data[i] is not self.end_point):
-                    print('x' * 10)
-                    height = self.get_height(self.current_data[i])
-                    print('x' * 10)
+                    # print('x' * 10)
+                    height = self.get_height(self.current_data[i], start, end)
+                    # print('x' * 10)
                     if height > max_value:
-                        farthest_point = self.current_data[i]
+                        # farthest_point = self.current_data[i]
                         max_value = height
                         index = i
 
-        return farthest_point, index, max_value
+        return index, max_value
+        #else:
+        #     return -1, -1
 
-    def get_height(self, point):
-        print(point)
-        height_start_to_end = abs(self.start_point[1] - self.end_point[1])
-        print('h_S_T', height_start_to_end)
-        x_distance_between_start_and_end = abs(self.start_point[0] - self.end_point[0])
-        print('x_s_e', x_distance_between_start_and_end)
-        x_distance_between_start_point = abs(self.start_point[0] - point[0])
-        print('x_s_p', x_distance_between_start_point)
-        ratio = x_distance_between_start_and_end / x_distance_between_start_point
-        height_start_to_point = height_start_to_end / ratio
-        print(height_start_to_point)
+    def get_height(self, point, start_point_index, end_point_index):
+        height_start_to_end = abs(self.current_data[start_point_index][1] - self.current_data[end_point_index][1])
+        print("hse", height_start_to_end)
+        # height_start_to_end = abs(self.start_point[1] - self.end_point[1])
+        if height_start_to_end != 0:
+            x_distance_between_start_and_end = abs(self.current_data[start_point_index][0]
+                                                   - self.current_data[end_point_index][0])
+            print("x_dis_se", x_distance_between_start_and_end)
+            # x_distance_between_start_and_end = abs(self.start_point[0] - self.end_point[0])
+            x_distance_between_start_point = abs(self.current_data[start_point_index][0] - point[0])
+            print("x_dis_sp", x_distance_between_start_point)
+            # x_distance_between_start_point = abs(self.start_point[0] - point[0])
+            ratio = x_distance_between_start_and_end / x_distance_between_start_point
+            print("ratio", ratio)
+            # ratio = x_distance_between_start_and_end / x_distance_between_start_point
+            height_start_to_point = height_start_to_end / ratio
+            print(point, height_start_to_point)
+        else:
+            height_start_to_point = abs(point[1] - self.current_data[start_point_index][1])
+            print(point, height_start_to_point)
         return height_start_to_point
+
+    def get_line(self, start_point_index, end_point_index):
+        pass
+
+    def get_gradient(self, start_point_index, end_point_index):
+        return abs(self.current_data[start_point_index][1] - self.current_data[end_point_index][1])/\
+               abs(self.current_data[start_point_index][0] - self.current_data[end_point_index][0])
 
     def ramer_douglas_peuker_algorithm(self):
         # inicializar los puntos extremos.
@@ -113,23 +134,24 @@ class RamerDouglasPeukerAlgorithm:
         self.__result.append(self.end_point)
 
         start_index = 0
-        end_index = len(self.current_data)
-
+        end_index = len(self.current_data)-1
+        print(self.current_data)
         self.__aux_rdp_algorithm(start_index, end_index)
+        self.result.sort(key=order_points)
 
     def __aux_rdp_algorithm(self, start_index, end_index):
-        print('indices: ', start_index, end_index)
-        point, index, max_diff = self.get_farthest_point(start_index, end_index)
-        print(point, index, max_diff)
-        if point is not None and index != -1 and max_diff != -1:
-            if max_diff < self.epsilon_error:
-                return []
-            else:
-                self.result.append(point)
-            # self.result.append(point)
-                a = self.__aux_rdp_algorithm(start_index, index)
-                b = self.__aux_rdp_algorithm(index, end_index)
-                return a + b
+        print('*'*10)
+        print('indices=> ', start_index, end_index)
+        index, max_diff = self.get_farthest_point(start_index, end_index)
+        print('*' * 10)
+        # print(index, max_diff)
+        if (index == -1 and max_diff == -1) or (max_diff <= self.epsilon_error):
+            return []
+        # if self.current_data[index] not in self.result:
+        #    self.result.append(self.current_data[index])
+        self.result.append(self.current_data[index])
+        self.__aux_rdp_algorithm(start_index, index)
+        self.__aux_rdp_algorithm(index, end_index)
 
     @staticmethod
     def get_points(data: list):
@@ -141,6 +163,8 @@ class RamerDouglasPeukerAlgorithm:
         return axis_x, axis_y
 
 
-test = RamerDouglasPeukerAlgorithm(1, [(1, 1), (2, 3), (4, 7), (4, 5), (6, 5)])
+lista_examen = [(0, 0), (1, 1), (3, 2), (5, 2), (6, 1), (7, 0), (9, -1), (11, 0)]
+l1 = [(1, 1), (2, 3), (4, 7), (5, 4), (6, 5)]
+test = RamerDouglasPeukerAlgorithm(1, lista_examen)
 test.ramer_douglas_peuker_algorithm()
 print(test.result)
