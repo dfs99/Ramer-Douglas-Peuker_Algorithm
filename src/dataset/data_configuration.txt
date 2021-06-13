@@ -1,0 +1,16 @@
+The data this project admits must follow the following structure in order
+to be processed.
+
+1-.) the fist line must contain the epsilon error in order to perform the
+     algorithm.
+2-.) the second line must contain the total number of points within the file.
+3-.) A point will be represented in two-dimensional plane where x coordinate
+     will be in first place. Afterwards, the y coordinate should follow the x
+     one separated by a comma. An example could be:
+        1,2
+        5,2
+        100,43
+
+4-.) Repeated points will be ignored by default.
+5-.) The file that contains the solution will be a .txt that contains all the
+     points successfully generated.

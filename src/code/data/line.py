@@ -2,13 +2,16 @@ import numpy as np
 from point import Point
 from ..exceptions.line_exception import LineException
 
+
 class StraightLine:
     """
     A line object is shaped with 2 points.
+    There can be 2 types of lines.
+        => Non vertical: its general equation is: (1x + c = 0)
+        => Vertical: its general equation is: (ax + 1y + c = 0)
     """
 
     def __init__(self, point1: Point, point2: Point = None, given_gradient=None):
-        # se pasan las referencias a los objetos únicamente
         # expression: y = ax + b
         self.__point1 = point1
         self.__point2 = point2
@@ -40,12 +43,10 @@ class StraightLine:
         Through the following equation: m = (y2 - y1)/(x2 - x1)
         :return: the gradient.
         """
-        try:
-            gradient = (self.point2.y - self.point1.y) / (self.point2.x - self.point1.x)
-        except ZeroDivisionError as exception:
-            # raise LineException("Linea no recta") from exception
-            # vertical line
+        if self.point2.x - self.point1.x == 0:
             gradient = None
+        else:
+            gradient = (self.point2.y - self.point1.y) / (self.point2.x - self.point1.x)
         return gradient
 
     def __get_general_equation_form(self):
@@ -57,10 +58,12 @@ class StraightLine:
         """
         general_expression = []
         if self.gradient is not None:
+            # [a, b, c]
             general_expression = [self.gradient, 1, (-self.gradient*self.point1.x) + self.point1.y]
         else:
             # vertical line.
-            general_expression = [self.point1.x, None, None]
+            # [a, none, c] => x - c = 0, x = c
+            general_expression = [1, None, -self.point1.x]
         return general_expression
 
     def get_perpendicular_line_gradient(self):

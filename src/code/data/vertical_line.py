@@ -1,4 +1,7 @@
 from line import StraightLine
 
+
 class VerticalStraightLine(StraightLine):
-    pass
+
+    def __init__(self):
+        pass
