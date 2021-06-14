@@ -9,3 +9,6 @@
     -2.4 1.7
 
 """
+# pip freeze > requirements.txt
+# pylint --generate-rcfile > .plintrc
+# pyb --start-project

@@ -1,5 +1,5 @@
 import numpy as np
-from line import StraightLine
+from line import Line
 
 
 class Point:
@@ -17,7 +17,7 @@ class Point:
         return self.__y
 
     @classmethod
-    def get_intersection_point(cls, line1: StraightLine, line2: StraightLine):
+    def get_intersection_point(cls, line1: Line, line2: Line):
         """
         Through solving a system of linear equations with numpy
         the intersection point is obtained.

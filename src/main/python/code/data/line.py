@@ -3,22 +3,21 @@ from point import Point
 from ..exceptions.line_exception import LineException
 
 
-class StraightLine:
+class Line:
     """
     A line object is shaped with 2 points.
     There can be 2 types of lines.
-        => Non vertical: its general equation is: (1x + c = 0)
-        => Vertical: its general equation is: (ax + 1y + c = 0)
+        => Vertical: its general equation is: (1x + c = 0)
+        => Non Vertical: its general equation is: (ax + 1y + c = 0)
     """
 
     def __init__(self, point1: Point, point2: Point = None, given_gradient=None):
-        # expression: y = ax + b
         self.__point1 = point1
         self.__point2 = point2
-
         if given_gradient is None:
-            self.__gradient = self.get_gradient()
-        self.__gradient = given_gradient
+            self.__gradient = self.__get_gradient()
+        else:
+            self.__gradient = given_gradient
         self.__general_equation = self.__get_general_equation_form()
 
     @property
@@ -37,7 +36,7 @@ class StraightLine:
     def general_equation(self):
         return self.__general_equation
 
-    def get_gradient(self):
+    def __get_gradient(self):
         """
         It figures out the slope / gradient out of the 2 given points.
         Through the following equation: m = (y2 - y1)/(x2 - x1)
@@ -52,7 +51,6 @@ class StraightLine:
     def __get_general_equation_form(self):
         """
         It gets the general equation form using the following expression
-        with point1 attribute and puts into a 3-element List.
                 (y - y1) = m(x - x1)
         The general equation form => ax + by + c = 0
         """
@@ -68,13 +66,11 @@ class StraightLine:
 
     def get_perpendicular_line_gradient(self):
         """
-        Given two lines, they'll be perpendicular if m1*m2 = -1.
+        Given two Non vertical lines, they'll be perpendicular if m1*m2 = -1.
         Otherwise they won't be perpendicular.
-        m1 will be represented with the current slope / gradient.
+        m1 will be represented with the current gradient.
         :return: the slope m2 in order to shape a perpendicular line.
         """
-        #TODO que pasa si la linea tiene pendiente 0? revisar este problema.
-        # las lineas perpendiculares a una recta vertical y horizontal.
         return - 1 / self.gradient
 
     @classmethod
