@@ -1,6 +1,5 @@
 import numpy as np
-from point import Point
-from ..exceptions.line_exception import LineException
+from src.RDP_algorithm.data.point import Point
 
 
 class Line:
@@ -36,6 +35,17 @@ class Line:
     def general_equation(self):
         return self.__general_equation
 
+    def __print_general_equation(self):
+        general_equation = self.general_equation
+        msm = str(general_equation[0])+"x " + str(general_equation[1]) + "y " + str(general_equation[2]) + " = 0"
+        return msm
+
+    def __str__(self):
+        return "Line - {0}: {1}".format(self.__hash__(), self.__print_general_equation())
+
+    def __hash__(self):
+        return id(self)
+
     def __get_gradient(self):
         """
         It figures out the slope / gradient out of the 2 given points.
@@ -57,11 +67,11 @@ class Line:
         general_expression = []
         if self.gradient is not None:
             # [a, b, c]
-            general_expression = [self.gradient, 1, (-self.gradient*self.point1.x) + self.point1.y]
+            general_expression = [self.gradient, float(-1), -(self.gradient*self.point1.x) + self.point1.y]
         else:
             # vertical line.
             # [a, none, c] => x - c = 0, x = c
-            general_expression = [1, None, -self.point1.x]
+            general_expression = [float(1), None, -self.point1.x]
         return general_expression
 
     def get_perpendicular_line_gradient(self):
@@ -71,7 +81,7 @@ class Line:
         m1 will be represented with the current gradient.
         :return: the slope m2 in order to shape a perpendicular line.
         """
-        return - 1 / self.gradient
+        return None if self.gradient is None else - 1 / self.gradient
 
     @classmethod
     def get_perpendicular_line_out_of_current_line(cls, reference_point: Point, gradient):
@@ -84,3 +94,27 @@ class Line:
         """
         return cls(reference_point, None, gradient)
 
+    @staticmethod
+    def get_intersection_point(line1, line2):
+
+        # Through solving a system of linear equations with numpy
+        # the intersection point is obtained.
+        #    AX = B
+        # where:
+        #    A,X,B are matrices fulfilled with the general equation terms.
+
+        fetch_a_matrix = [
+            [line1.general_equation[0], line1.general_equation[1]],
+            [line2.general_equation[0], line2.general_equation[1]]
+        ]
+        fetch_b_matrix = [
+            [-line1.general_equation[2]],
+            [-line2.general_equation[2]]
+        ]
+
+        a = np.array(fetch_a_matrix)
+        b = np.array(fetch_b_matrix)
+        x = np.linalg.inv(a).dot(b)
+
+        # x is a vector [x, y] that contains the values like that.
+        return Point(x[0], x[1])
