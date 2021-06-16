@@ -4,7 +4,7 @@ from src.RDP_algorithm.data.point import Point
 
 class Line:
     """
-    A line object is shaped with 2 points.
+    A Non vertical line object is shaped with 2 points.
     There can be 2 types of lines.
         => Vertical: its general equation is: (1x + c = 0)
         => Non Vertical: its general equation is: (ax + 1y + c = 0)
@@ -13,10 +13,7 @@ class Line:
     def __init__(self, point1: Point, point2: Point = None, given_gradient=None):
         self.__point1 = point1
         self.__point2 = point2
-        if given_gradient is None:
-            self.__gradient = self.__get_gradient()
-        else:
-            self.__gradient = given_gradient
+        self.__gradient = self.__get_gradient(given_gradient)
         self.__general_equation = self.__get_general_equation_form()
 
     @property
@@ -46,17 +43,20 @@ class Line:
     def __hash__(self):
         return id(self)
 
-    def __get_gradient(self):
+    def __get_gradient(self, given_gradient):
         """
         It figures out the slope / gradient out of the 2 given points.
         Through the following equation: m = (y2 - y1)/(x2 - x1)
         :return: the gradient.
         """
-        if self.point2.x - self.point1.x == 0:
-            gradient = None
+        if given_gradient is not None:
+            return given_gradient
         else:
-            gradient = (self.point2.y - self.point1.y) / (self.point2.x - self.point1.x)
-        return gradient
+            if self.point2.x - self.point1.x == 0:
+                gradient = None
+            else:
+                gradient = (self.point2.y - self.point1.y) / (self.point2.x - self.point1.x)
+            return gradient
 
     def __get_general_equation_form(self):
         """
@@ -68,10 +68,10 @@ class Line:
         if self.gradient is not None:
             # [a, b, c]
             general_expression = [self.gradient, float(-1), -(self.gradient*self.point1.x) + self.point1.y]
-        else:
+        # else:
             # vertical line.
             # [a, none, c] => x - c = 0, x = c
-            general_expression = [float(1), None, -self.point1.x]
+        #    general_expression = [float(1), None, -self.point1.x]
         return general_expression
 
     def get_perpendicular_line_gradient(self):
