@@ -81,7 +81,11 @@ class Line:
         m1 will be represented with the current gradient.
         :return: the slope m2 in order to shape a perpendicular line.
         """
-        return None if self.gradient is None else - 1 / self.gradient
+
+        if self.gradient is None:
+            return None
+        else:
+            return - 1 / self.gradient
 
     @classmethod
     def get_perpendicular_line_out_of_current_line(cls, reference_point: Point, gradient):

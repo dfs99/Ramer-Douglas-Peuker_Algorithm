@@ -19,6 +19,15 @@ class Point:
     def __hash__(self):
         return id(self)
 
+    def __lt__(self, other):
+        if isinstance(other, Point):
+            if self.x < other.x:
+                return self
+        else:
+            # excepcion
+            return None
+
+
     @staticmethod
     def get_distance_between_2_points(point1, point2):
         return float(((point2.x - point1.x)**2 + (point2.y - point1.y)**2)**(1/2))
