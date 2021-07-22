@@ -1,5 +1,5 @@
 import numpy as np
-from src.RDP_algorithm.data.point import Point
+from src.data.point import Point
 
 
 class Line:

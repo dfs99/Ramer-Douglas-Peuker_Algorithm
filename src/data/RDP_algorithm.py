@@ -1,6 +1,6 @@
 from copy import deepcopy
-from src.RDP_algorithm.data.point import Point
-from src.RDP_algorithm.data.line import Line
+from src.data.point import Point
+from src.data import Line
 
 
 class RamerDouglasPeukerAlgorithm:
