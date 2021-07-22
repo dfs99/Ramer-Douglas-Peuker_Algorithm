@@ -1,6 +1,7 @@
 from copy import deepcopy
-from src.data.point import Point
+from src.data import Point
 from src.data import Line
+from src.parser import benchmark
 
 
 class RamerDouglasPeukerAlgorithm:
@@ -70,6 +71,8 @@ lista_examen = [(1.0, 1.0), (2.0, 3.0), (3.0, 1.5),
                 (4.0, 5.0), (5.0, 4.0), (6.0, 2.0)]
 
 l1 = [(1, 1), (2, 3), (4, 7), (5, 4), (6, 5)]
+
 test = RamerDouglasPeukerAlgorithm(1.75, lista_examen)
 print(test.current_data)
+
 print(test.solve(test.current_data))
