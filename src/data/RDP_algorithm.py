@@ -5,7 +5,6 @@ from src.parser import benchmark
 
 
 class RamerDouglasPeukerAlgorithm:
-
     def __init__(self, epsilon_error: float, data: list):
         self.__current_data = deepcopy(data)
         self.__current_data.sort(key=order_points)
@@ -25,7 +24,7 @@ class RamerDouglasPeukerAlgorithm:
 
     @staticmethod
     def get_distance(point: Point, line1: Line):
-        line2 = Line.get_perpendicular_line_out_of_current_line(point, line1.get_perpendicular_line_gradient())
+        line2 = line1.get_perpendicular_line(point)
         intersection_point = Line.get_intersection_point(line1, line2)
         return Point.get_distance_between_2_points(point, intersection_point)
 
@@ -70,9 +69,9 @@ def order_points(point: tuple):
 lista_examen = [(1.0, 1.0), (2.0, 3.0), (3.0, 1.5),
                 (4.0, 5.0), (5.0, 4.0), (6.0, 2.0)]
 
-l1 = [(1, 1), (2, 3), (4, 7), (5, 4), (6, 5)]
+l1 = [(1.0, 1.0), (2.0, 3.0), (4.0, 7.0), (5.0, 4.0), (6.0, 5.0), (7.0, 1.0)]
 
-test = RamerDouglasPeukerAlgorithm(1.75, lista_examen)
+test = RamerDouglasPeukerAlgorithm(0.75, l1)
 print(test.current_data)
 
 print(test.solve(test.current_data))

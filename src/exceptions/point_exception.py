@@ -1,4 +1,4 @@
-class LineException(Exception):
+class PointException(Exception):
 
     def __init__(self, message):
         self.__message = message
