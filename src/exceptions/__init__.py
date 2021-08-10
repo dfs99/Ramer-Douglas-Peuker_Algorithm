@@ -1,2 +1,4 @@
 from src.exceptions.line_exception import LineException
 from src.exceptions.point_exception import PointException
+from src.exceptions.parser_exception import ParserException
+from src.exceptions.ramer_douglas_peuker_exception import RDPException, RDPPainterException

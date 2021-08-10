@@ -57,7 +57,7 @@ class Point:
         sqrt( (x_i-x_j)² + (y_i-y_j)²)
         check it with cython to speed up.
         """
-        return float(((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2) ** (1 / 2))
+        return float((abs(point2.x - point1.x) ** 2 + abs(point2.y - point1.y) ** 2) ** (1 / 2))
 
     @staticmethod
     def __validate_coord(coord):

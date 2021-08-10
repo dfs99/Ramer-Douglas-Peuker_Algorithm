@@ -79,3 +79,48 @@ class TestPoint(TestCase):
         list_to_sort = [Point(1.0, 3.0), Point(0.0, 30.0), Point(10.0, 4.0), Point(5.0, 2.0)]
         list_to_sort.sort(key=Point.order_points_y_coord)
         self.assertEqual(list_to_sort, [Point(5.0, 2.0), Point(1.0, 3.0), Point(10.0, 4.0), Point(0.0, 30.0)])
+
+    def test_distance_between_two_diagonal_positive_points_tests(self):
+        p1 = Point(1.0, 1.0)
+        p2 = Point(2.0, 2.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 1.4142135623730951)
+
+    def test_distance_between_two_diagonal_negative_points_tests(self):
+        p1 = Point(-1.0, -1.0)
+        p2 = Point(-2.0, -2.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 1.4142135623730951)
+
+    def test_distance_between_positive_negative_diagonal_points_tests(self):
+        p1 = Point(-1.0, -1.0)
+        p2 = Point(2.0, 2.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 4.242640687119285)
+
+    def test_distance_between_positive_vertical_points_tests(self):
+        p1 = Point(1.0, 1.0)
+        p2 = Point(1.0, 5.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 4.0)
+
+    def test_distance_between_negative_vertical_points_tests(self):
+        p1 = Point(-1.0, -1.0)
+        p2 = Point(-1.0, -5.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 4.0)
+
+    def test_distance_between_positive_negative_vertical_points_tests(self):
+        p1 = Point(1.0, 1.0)
+        p2 = Point(1.0, -5.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 6.0)
+
+    def test_distance_between_positive_horizontal_points_tests(self):
+        p1 = Point(1.0, 1.0)
+        p2 = Point(5.0, 1.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 4.0)
+
+    def test_distance_between_negative_horizontal_points_tests(self):
+        p1 = Point(-1.0, -1.0)
+        p2 = Point(-5.0, -1.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 4.0)
+
+    def test_distance_between_positive_negative_horizontal_points_tests(self):
+        p1 = Point(1.0, 1.0)
+        p2 = Point(1.0, -5.0)
+        self.assertEqual(Point.get_distance_between_2_points(p1, p2), 6.0)

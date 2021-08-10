@@ -145,13 +145,16 @@ class Line:
         general_expression = []
         # vertical
         if self.type == Line.LINE_TYPES[0]:
-            general_expression = [float(1), None, -self.point1.x]
+            general_expression = [float(1), None, -self.point1.painter]
         # horizontal
         elif self.type == Line.LINE_TYPES[1]:
             general_expression = [Line.HORIZONTAL_GRADIENT, float(1), -self.point1.y]
         # non-vertical
         elif self.type == Line.LINE_TYPES[2]:
-            general_expression = [self.gradient, float(-1), -(self.gradient * self.point1.x) + self.point1.y]
+            #  y-y1 = m(x-x1)
+            #
+            #
+            general_expression = [self.gradient, float(-1), (-(self.gradient * self.point1.x) + self.point1.y)]
         return general_expression
 
     def get_perpendicular_line(self, reference_point):
@@ -161,10 +164,10 @@ class Line:
         """
         # vertical
         if self.type == Line.LINE_TYPES[0]:
-            return Line.generate_perpendicular_line(reference_point, Point(self.point1.x, reference_point.y), None)
+            return Line.generate_perpendicular_line(reference_point, Point(self.point1.painter, reference_point.y), None)
         # horizontal
         elif self.type == Line.LINE_TYPES[1]:
-            return Line.generate_perpendicular_line(reference_point, Point(reference_point.x, self.point1.y), None)
+            return Line.generate_perpendicular_line(reference_point, Point(reference_point.painter, self.point1.y), None)
         # non-vertical
         elif self.type == Line.LINE_TYPES[2]:
             perpendicular_gradient = -1/self.gradient
@@ -216,9 +219,9 @@ class Line:
                     empleando y despejando y=mx+n
         """
         if line1.type == "VERTICAL" and line2.type == "HORIZONTAL":
-            return Point(line1.point1.x, line2.point1.y)
+            return Point(line1.point1.painter, line2.point1.y)
         elif line1.type == "HORIZONTAL" and line2.type == "VERTICAL":
-            return Point(line2.point1.x, line1.point1.y)
+            return Point(line2.point1.painter, line1.point1.y)
         elif (line1.type == "HORIZONTAL" and line2.type == "NON-VERTICAL") or \
                 (line1.type == "NON-VERTICAL" and line2.type == "HORIZONTAL"):
             if line1.type == "HORIZONTAL":

@@ -209,3 +209,17 @@ class TestLine(TestCase):
         line2 = Line(Point(0.0, 0.0), Point(1.0, -1.0))
         point = Line.get_intersection_point(line1, line2)
         self.assertEqual(point, Point(-0.6, 0.6000000000000001))
+
+
+    def test_xd(self):
+        p1 = Point(4.0, 7.0)
+        p2 = Point(7.0, 1.0)
+        line1 = Line(p1, p2)
+        line2 = line1.get_perpendicular_line(Point(5.0, 4.0))
+        print(line1.type, line1.general_equation)
+        print(line2.type, line2.general_equation)
+        p = Line.get_intersection_point(line1, line2)
+        print(p)
+        l = Line(Point(5.0, 4.0), Point(6.0, 5.0))
+        print(l.general_equation)
+        print(-1/line2.gradient)

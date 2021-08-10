@@ -14,3 +14,7 @@ to be processed.
 4-.) Repeated points will be ignored by default.
 5-.) The file that contains the solution will be a .txt that contains all the
      points successfully generated.
+
+
+hacer una imagen en el paint con fondo blanco y dibujar una silueta, extraer los ptos
+en el mapa de coordenadas y simplificar la imagen automáticamente.
