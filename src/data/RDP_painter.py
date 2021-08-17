@@ -301,4 +301,7 @@ class RamerDouglasPeukerPainter:
                                                     frames=self.animation_param_instance.num_frames_total_lines,
                                                     interval=given_speed, repeat=False, blit=True)
         RamerDouglasPeukerPainter.AXES.set_box_aspect(1)
+        # Comprueba que efectivamente si son perpendiculares.
+        # RamerDouglasPeukerPainter.AXES.set_xlim([0, 14])
+        # RamerDouglasPeukerPainter.AXES.set_ylim([-7, 7])
         current_animation.save(absolute_path, writer=given_writer)
