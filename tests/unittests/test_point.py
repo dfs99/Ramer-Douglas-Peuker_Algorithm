@@ -5,21 +5,23 @@ from src.exceptions.point_exception import PointException
 
 class TestPoint(TestCase):
     test_num = 0
+    filename = "point.py"
 
     def setUp(self) -> None:
         TestPoint.test_num += 1
-        print("""Test nº) {0}: Starting test...""".format(TestPoint.test_num))
+        # print("""Test nº) {0}: Starting test...""".format(TestPoint.test_num))
 
     def tearDown(self) -> None:
-        print("\t\t\tending test...")
+        # print("\t\t\tending test...")
+        pass
 
     @classmethod
     def setUpClass(cls):
-        print("INITIALIZING TESTS:")
+        print("INITIALIZING " + TestPoint.filename + " TESTS:")
 
     @classmethod
     def tearDownClass(cls):
-        print("ENDING TESTS.")
+        print("ENDING " + TestPoint.filename + " TESTS.")
 
     def test_generate_point_tests(self):
         p1 = Point(1.0, 2.0)

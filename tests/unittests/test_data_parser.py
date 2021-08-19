@@ -5,21 +5,23 @@ from src.exceptions import ParserException
 
 class TestParser(TestCase):
     test_num = 0
+    filename = "data_parser.py"
 
     def setUp(self) -> None:
         TestParser.test_num += 1
-        print("""Test nº) {0}: Starting test...""".format(TestParser.test_num))
+        # print("""Test nº) {0}: Starting test...""".format(TestParser.test_num))
 
     def tearDown(self) -> None:
-        print("\t\t\tending test...")
+        # print("\t\t\tending test...")
+        pass
 
     @classmethod
     def setUpClass(cls):
-        print("INITIALIZING TESTS:")
+        print("INITIALIZING " + TestParser.filename + " TESTS:")
 
     @classmethod
     def tearDownClass(cls):
-        print("ENDING TESTS.")
+        print("ENDING " + TestParser.filename + " TESTS.")
 
     def test_valid_data_parser_tests(self):
         p = Parser("src/dataset/test_cases/valid_data.txt")
@@ -43,9 +45,12 @@ class TestParser(TestCase):
     def test_wrong_path_tests(self):
         with self.assertRaises(ParserException) as cm:
             Parser("non_existent_path/data1.txt")
-        self.assertEqual(str(cm.exception),
-                         "ERROR: Path does not exist: C:\\Users\\DIEGO\\PycharmProjects\\Ramer-Douglas-Peuker_Algorit"
-                         "hm/non_existent_path/data1.txt")
+        # WINDOWS
+        #self.assertEqual(str(cm.exception),
+        #                 "ERROR: Path does not exist: C:\\Users\\DIEGO\\PycharmProjects\\Ramer-Douglas-Peuker_Algorit"
+        #                 "hm/non_existent_path/data1.txt")
+        # LINUX
+        self.assertEqual(str(cm.exception), "ERROR: Path does not exist: /home/diego/PycharmProjects/Ramer-Douglas-Peuker_Algorithm/non_existent_path/data1.txt")
 
     def test_wrong_epsilon_too_many_args_tests(self):
         with self.assertRaises(ParserException) as cm:

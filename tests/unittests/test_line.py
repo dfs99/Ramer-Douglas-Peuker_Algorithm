@@ -6,21 +6,23 @@ from src.exceptions.line_exception import LineException
 
 class TestLine(TestCase):
     test_num = 0
+    filename = "line.py"
 
     def setUp(self) -> None:
         TestLine.test_num += 1
-        print("""Test nº) {0}: Starting test...""".format(TestLine.test_num))
+        # print("""Test nº) {0}: Starting test...""".format(TestLine.test_num))
 
     def tearDown(self) -> None:
-        print("\t\t\tending test...")
+        # print("\t\t\tending test...")
+        pass
 
     @classmethod
     def setUpClass(cls):
-        print("INITIALIZING TESTS:")
+        print("INITIALIZING " + TestLine.filename + " TESTS:")
 
     @classmethod
     def tearDownClass(cls):
-        print("ENDING TESTS.")
+        print("ENDING " + TestLine.filename + " TESTS.")
 
     """
     =================================================================
@@ -182,7 +184,6 @@ class TestLine(TestCase):
     def test_intersection_point_horizontal_non_vertical_lines_tests(self):
         line1 = Line(Point(2.0, 5.0), gradient=0.0)
         line2 = Line(Point(1.0, 3.0), gradient=1.5)
-        print(line2.general_equation)
         point = Line.get_intersection_point(line1, line2)
         self.assertEqual(point, Point(2.3333333333333335, 5.0))
 
@@ -209,17 +210,3 @@ class TestLine(TestCase):
         line2 = Line(Point(0.0, 0.0), Point(1.0, -1.0))
         point = Line.get_intersection_point(line1, line2)
         self.assertEqual(point, Point(-0.6, 0.6000000000000001))
-
-
-    def test_xd(self):
-        p1 = Point(4.0, 7.0)
-        p2 = Point(7.0, 1.0)
-        line1 = Line(p1, p2)
-        line2 = line1.get_perpendicular_line(Point(5.0, 4.0))
-        print(line1.type, line1.general_equation)
-        print(line2.type, line2.general_equation)
-        p = Line.get_intersection_point(line1, line2)
-        print(p)
-        l = Line(Point(5.0, 4.0), Point(6.0, 5.0))
-        print(l.general_equation)
-        print(-1/line2.gradient)
