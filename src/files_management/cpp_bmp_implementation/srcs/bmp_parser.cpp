@@ -1,15 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-// BMP HEADER = bitmap header + dib header
-// bpp bits per pixel
+#include "../headers/BMPfile.h"
 
-#define BMP_HEADER_SIZE 54
-#define BITMAP_HEADER_SIZE 14
-#define DIB_HEADER_SIZE 40  // bitmap information header
-
-
-
+/*
 // se estan usando
 
 #define BYTES_PER_PIXEL 3
@@ -32,40 +26,6 @@
 #define BMP_HEADER_OFFSET_COLOR_PALLETE 46
 #define BMP_HEADER_OFFSET_COLOR_COUNT 50
 
-
-struct pixel_24bpp{
-    // unsigned ints 8 bits => 1 byte
-    // (B, G, R) Format
-    uint8_t blue;
-    uint8_t green;
-    uint8_t red;
-};
-
-// 14 bytes.
-struct bitmap_header{
-    unsigned char b;
-    unsigned char m;
-    uint32_t total_size_in_bytes;
-    uint32_t reserved_fields;   // si se genera manualmente puede ponerse como 0, varia el valor
-    // dependiendo de la aplicación que lo ha creado.
-    uint32_t image_data_offset;
-};
-
-// 40 bytes.
-struct dib_header{
-// detailed info about the BMP file.
-    uint32_t dib_header_size;   // 40
-    uint32_t width_in_pixels;
-    uint32_t height_in_pixels;
-    uint16_t color_planes;    // must be 1
-    uint16_t dot_size;        // num bits per pixel. 1, 4, 8, 16, 24 and 32.
-    uint32_t compression_method;
-    uint32_t image_size_bytes;
-    uint32_t horizontal_resolution; // pixel per metre.
-    uint32_t vertical_resolution; // pixel per metre.
-    uint32_t color_pallete_size;
-    uint32_t color_count;
-};
 
 class BMPfile{
     public:
@@ -131,7 +91,7 @@ class BMPfile{
         int set_padding(){
         // the size of each row in a bitmap must be % 4 = 0, a word
             int padd = 0;
-            if (/*(BMPfile::detailed_header->width_in_pixels*BYTES_PER_PIXEL)%MOD_ALIGN_MEMORY)*/ 0 != 0){
+            if ((BMPfile::detailed_header->width_in_pixels*BYTES_PER_PIXEL)%MOD_ALIGN_MEMORY != 0){
                 padd = MOD_ALIGN_MEMORY - ((BMPfile::detailed_header->width_in_pixels*BYTES_PER_PIXEL)%MOD_ALIGN_MEMORY);
             }
             return padd;
@@ -151,10 +111,10 @@ class BMPfile{
                 }/*else{
                     // lanzar excepcion: existe fichero pero no es bmp
                 }
-                */
-            }/*else{
+
+            }*//*else{
                 // lanzar una excepcion. no existe fichero.
-            }*/
+            }*//*
         }
 
         bool check_bmp_file(){
@@ -250,55 +210,12 @@ class BMPfile{
             }
         }
 
-};
-
-
-/*
-bool check_bmp_file(const std::string given_filename){
-    std::ifstream current_file(given_filename, std::ios_base::binary);
-    // check only the first 2 bytes that contains the magic letters BM.
-    std::vector<unsigned char> magic_letters {2};
-    magic_letters[0] = current_file.get();
-    magic_letters[1] = current_file.get();
-    //cout << "Magic letters: " << magic_letters[0] << " " << magic_letters[1] << endl;
-    return (magic_letters[0] == 'B' && magic_letters[1] == 'M') ? true : false;
-
-
-    std::vector<unsigned char> buffer;
-    while(current_file){ buffer.push_back(current_file.get());}
-    cout << endl;
-    cout << "ANother aproximation:" << endl;
-    int n;
-    for(size_t i = 0; i < buffer.size(); ++i){
-        if (i == 0) cout << buffer[i] << endl;
-        if (i == 1) cout << buffer[i] << endl;
-        if (i == 6) n = (int)(buffer[2] | buffer[3] << 8 | buffer [4] << 16 | buffer[5] << 24);
-    }
-
-    cout << "Total bytes: " << n << endl;
-    if (n >= 1105906) cout << "si funcional!!" << endl;
-    for (int j = 0; j < n; ++j){
-        cout << j << " ";
-    }
-    //1.105.906
-    //1.105.906
-}*/
+};*/
 
 
 using namespace std;
 int main(){
-    /*char b = 'B';
-    char m = 'M';
-    int b_int = b;
-    int m_int = m;
-    cout << "BMP PARSER" << endl;
-    cout << "B value: " << b_int << " => HEX: 0x" << hex << b_int << endl;
-    cout << "M value: " << m_int << " => HEX: 0x" << hex << m_int << endl;
-    //const string filename = "spain_map.bmp";
-    struct BMP_file current_file;
-    bool res = check_bmp_file(filename);
-    cout << res;*/
-    const string filename = "spain_map.bmp";
+    const string filename = "../images/spain_map.bmp";
     BMPfile my_file {filename};
     my_file.print_values();
 }
