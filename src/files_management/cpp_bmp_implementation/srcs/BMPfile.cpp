@@ -9,6 +9,9 @@
 #define BYTES_PER_PIXEL 3
 #define MOD_ALIGN_MEMORY 4
 
+#define BLACK_COLOR 0
+#define WHITE_COLOR 255
+
 #define BMP_HEADER_OFFSET_B 0
 #define BMP_HEADER_OFFSET_M 1
 #define BMP_HEADER_OFFSET_TOTAL_SIZE 2
@@ -26,9 +29,13 @@
 #define BMP_HEADER_OFFSET_COLOR_PALLETE 46
 #define BMP_HEADER_OFFSET_COLOR_COUNT 50
 
+const char* BMP_EXCEPT_OPENING_ERROR = "Error while opening the bmp file. The file either not exists nor has been placed in another directory";
+const char* BMP_EXCEPT_WRONG_TYPE = "Error, the file is not a BMP file.";
+const char* BMP_EXCEPT_WRONG_BBP = "Error, the BMP file is not 24bbp. Cannot be loaded.";
+const char* BMP_EXCEPT_COMPRESSION = "Error, the BMP has a compression method. It cannot have any compression methods.";
 
 BMPfile::BMPfile(const std::string given_filename){
-    filename = BMPfile::is_exists(given_filename) == true ? (std::string)given_filename : "";
+    filename = BMPfile::is_exists(given_filename) == true ? (std::string)given_filename : throw BMPfileException(BMP_EXCEPT_OPENING_ERROR);
     // eliminar mmry
     std::vector<unsigned char> temp_buffer;
     BMPfile::get_data_buffer(temp_buffer);
@@ -45,7 +52,7 @@ BMPfile::BMPfile(const std::string given_filename){
     BMPfile::fetch_image(temp_buffer);
 }
 
-void BMPfile::print_values(){
+void BMPfile::print_values (){
     std::cout << "HEADER VALUES" << std::endl;
     std::cout << BMPfile::header->b << " ";
     std::cout << BMPfile::header->m << " ";
@@ -75,7 +82,7 @@ void BMPfile::print_values(){
 }
 
 
-int BMPfile::set_padding(){
+int BMPfile::set_padding () {
 // the size of each row in a bitmap must be % 4 = 0, a word
     int padd = 0;
     if ((BMPfile::detailed_header->width_in_pixels*BYTES_PER_PIXEL)%MOD_ALIGN_MEMORY != 0){
@@ -84,35 +91,50 @@ int BMPfile::set_padding(){
     return padd;
 }
 
-bool BMPfile::is_exists(const std::string& name){
+bool BMPfile::is_exists (const std::string& name){
     std::ifstream f(name.c_str());
     return f.good();
 }
 
 void BMPfile::get_data_buffer(std::vector<unsigned char>& buff){
-    if (BMPfile::filename != ""){
-        std::ifstream current_file(BMPfile::filename, std::ios_base::binary);
-
-        if (BMPfile::check_bmp_file()){
-            while(current_file){ buff.push_back(current_file.get());}
-        }/*else{
-            // lanzar excepcion: existe fichero pero no es bmp
-        }
-        */
-    }/*else{
-        // lanzar una excepcion. no existe fichero.
-    }*/
+    std::ifstream current_file(BMPfile::filename, std::ios_base::binary);
+    if (BMPfile::check_bmp_file()){
+        while(current_file){ buff.push_back(current_file.get());}
+    }
 }
 
 bool BMPfile::check_bmp_file(){
-    // problema a la hora de leer la info.
+    // checks is a bmp file, no compressed and 24bbp.
+
+    std::vector<unsigned char> magic_letters (2);
     std::ifstream current_file(BMPfile::filename, std::ios_base::binary);
-    // check only the first 2 bytes that contains the magic letters BM.
-    std::vector<unsigned char> magic_letters {2};
+
+    // check first the first 2 bytes that contains the magic letters BM.
     magic_letters[0] = current_file.get();
     magic_letters[1] = current_file.get();
-    //cout << "Magic letters: " << magic_letters[0] << " " << magic_letters[1] << endl;
-    return (magic_letters[0] == 'B' && magic_letters[1] == 'M') ? true : false;
+    if (magic_letters[0] != 'B' || magic_letters[1] != 'M') throw BMPfileException(BMP_EXCEPT_WRONG_TYPE);
+
+    std::vector<unsigned char> rest_header;
+    size_t header_bytes_remaining = 52;
+    while (header_bytes_remaining != 0){
+        rest_header.push_back(current_file.get());
+        --header_bytes_remaining;
+    }
+
+    uint16_t bits_per_pixel_format = (uint16_t)(rest_header[BMP_HEADER_OFFSET_DOT_SIZE-2] |
+                                                rest_header[BMP_HEADER_OFFSET_DOT_SIZE-1] << 8);
+
+    //std::cout << bits_per_pixel_format << std::endl;
+    if (bits_per_pixel_format != 24) throw BMPfileException(BMP_EXCEPT_WRONG_BBP);
+
+    uint32_t compression_format = (uint32_t)(rest_header[BMP_HEADER_OFFSET_COMPREHENSION_METHOD-2] |
+                                             rest_header[BMP_HEADER_OFFSET_COMPREHENSION_METHOD-1] << 8 |
+                                             rest_header[BMP_HEADER_OFFSET_COMPREHENSION_METHOD] << 16 |
+                                             rest_header[BMP_HEADER_OFFSET_COMPREHENSION_METHOD+1] << 24);
+    //std::cout << compression_format << std::endl;
+    if (compression_format != 0) throw BMPfileException(BMP_EXCEPT_COMPRESSION);
+
+    return true;
 }
 
 void BMPfile::init_header(std::vector<unsigned char>& buffer){
@@ -195,4 +217,24 @@ void BMPfile::fetch_image(std::vector<unsigned char>& buffer){
             BMPfile::image_data[i][j].red = (uint8_t)buffer[pixel_index+2];
         }
     }
+}
+
+void BMPfile::generate_point_file(){
+    std::vector<bitmap_point> total_num_points;
+    for (size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
+        for (size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
+            if (BMPfile::image_data[i][j].blue == BLACK_COLOR &&
+                BMPfile::image_data[i][j].green == BLACK_COLOR &&
+                BMPfile::image_data[i][j].red == BLACK_COLOR){
+                bitmap_point current_point = {&image_data[i][j], j, i};
+                total_num_points.push_back(current_point);
+            }
+        }
+    }
+    std::ofstream outfile("res.txt");
+    outfile << total_num_points.size() << std::endl;
+    for(size_t i = 0; i < total_num_points.size(); ++i){
+        outfile << total_num_points[i].x_coord << " " << total_num_points[i].y_coord << std::endl;
+    }
+    outfile.close();
 }

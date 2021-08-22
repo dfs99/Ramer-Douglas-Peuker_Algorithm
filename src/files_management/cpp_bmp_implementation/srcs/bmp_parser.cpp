@@ -217,5 +217,6 @@ using namespace std;
 int main(){
     const string filename = "../images/spain_map.bmp";
     BMPfile my_file {filename};
-    my_file.print_values();
+    my_file.generate_point_file();
+    //my_file.print_values();
 }

@@ -5,6 +5,9 @@
 #define BMPFILE_H
 
 #include <cstdint>
+#include <exception>
+#include <string>
+#include <vector>
 
 struct pixel_24bpp{
     /*
@@ -91,8 +94,22 @@ class BMPfile{
 
 public:
     BMPfile(const std::string given_filename);
-    void print_values();
+    void print_values ();
+    void generate_point_file();
 
+};
+
+struct bitmap_point{
+    struct pixel_24bpp *given_pixel;
+    size_t x_coord;
+    size_t y_coord;
+};
+
+class BMPfileException : public std::exception {
+    const char *message;
+public:
+    BMPfileException(const char* msg);
+    virtual char const* what() const throw();
 };
 
 #endif
