@@ -8,6 +8,7 @@
 #include <exception>
 #include <string>
 #include <vector>
+#include <array>
 
 struct pixel_24bpp{
     /*
@@ -78,6 +79,7 @@ struct dib_header{
 };
 
 class BMPfile{
+    std::string path;
     std::string filename;
     int padding;
     struct bitmap_header *header;
@@ -85,7 +87,8 @@ class BMPfile{
     struct pixel_24bpp **image_data;
 
     int set_padding();
-    bool is_exists(const std::string& name);
+    bool is_exists(const std::string& path);
+    std::string extract_filename_from_path();
     void get_data_buffer(std::vector<unsigned char>& buff);
     bool check_bmp_file();
     void init_header(std::vector<unsigned char>& buffer);
@@ -93,14 +96,17 @@ class BMPfile{
     void fetch_image(std::vector<unsigned char>& buffer);
 
 public:
-    BMPfile(const std::string given_filename);
+    BMPfile(const std::string given_path);
+    //~BMPfile();     // destructor
     void print_values ();
     void generate_point_file();
+    void generate_bmp_file();
 
 };
 
+using bitmap_point2 = std::array<size_t, 2>;
+
 struct bitmap_point{
-    struct pixel_24bpp *given_pixel;
     size_t x_coord;
     size_t y_coord;
 };

@@ -3,14 +3,21 @@
 #include <vector>
 #include "../headers/BMPfile.h"
 
-
-// se estan usando
+// get current os to manage path accesses.
+#if defined(_WIN32)
+    #define PLATFORM_NAME 1 // windows.
+#elif defined(_WIN64)
+    #define PLATFORM_NAME 1 // "windows"
+#elif defined(__linux__)
+    #define PLATFORM_NAME 2 // "linux"
+#endif
 
 #define BYTES_PER_PIXEL 3
 #define MOD_ALIGN_MEMORY 4
 
 #define BLACK_COLOR 0
 #define WHITE_COLOR 255
+#define BMP_FILE_HEADER_SIZE 54
 
 #define BMP_HEADER_OFFSET_B 0
 #define BMP_HEADER_OFFSET_M 1
@@ -33,9 +40,11 @@ const char* BMP_EXCEPT_OPENING_ERROR = "Error while opening the bmp file. The fi
 const char* BMP_EXCEPT_WRONG_TYPE = "Error, the file is not a BMP file.";
 const char* BMP_EXCEPT_WRONG_BBP = "Error, the BMP file is not 24bbp. Cannot be loaded.";
 const char* BMP_EXCEPT_COMPRESSION = "Error, the BMP has a compression method. It cannot have any compression methods.";
+const char* BMP_EXCEPT_FAIL_TO_EXTRACT_NAME = "Error, a failure has been occur while the name was being extracting from path.";
 
-BMPfile::BMPfile(const std::string given_filename){
-    filename = BMPfile::is_exists(given_filename) == true ? (std::string)given_filename : throw BMPfileException(BMP_EXCEPT_OPENING_ERROR);
+BMPfile::BMPfile(const std::string given_path){
+    path = BMPfile::is_exists(given_path) == true ? (std::string)given_path : throw BMPfileException(BMP_EXCEPT_OPENING_ERROR);
+    filename = BMPfile::extract_filename_from_path();
     // eliminar mmry
     std::vector<unsigned char> temp_buffer;
     BMPfile::get_data_buffer(temp_buffer);
@@ -53,6 +62,8 @@ BMPfile::BMPfile(const std::string given_filename){
 }
 
 void BMPfile::print_values (){
+    std::cout << "CUrrent os using: " << (PLATFORM_NAME == 1 ? "windows" : "linux") << std::endl;
+    std::cout << "Filename: " << BMPfile::filename << std::endl;
     std::cout << "HEADER VALUES" << std::endl;
     std::cout << BMPfile::header->b << " ";
     std::cout << BMPfile::header->m << " ";
@@ -72,13 +83,13 @@ void BMPfile::print_values (){
     std::cout << BMPfile::detailed_header->color_pallete_size << " ";
     std::cout << BMPfile::detailed_header->color_count << " ";
     std::cout << std::endl << "IMAGE DATA" << std::endl;
-    for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
+    /*for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
         for(size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
             std::cout << "Pixel: b" << (int)BMPfile::image_data[i][j].blue << " g" << (int)BMPfile::image_data[i][j].green
             << " r" << (int)BMPfile::image_data[i][j].red << " ";
         }
         std::cout << std::endl;
-    }
+    }*/
 }
 
 
@@ -91,13 +102,28 @@ int BMPfile::set_padding () {
     return padd;
 }
 
-bool BMPfile::is_exists (const std::string& name){
-    std::ifstream f(name.c_str());
+bool BMPfile::is_exists (const std::string& path){
+    std::ifstream f(path.c_str());
     return f.good();
 }
 
+std::string BMPfile::extract_filename_from_path(){
+    std::string name;
+    switch(PLATFORM_NAME){
+        case 1: //"windows"
+            name = path.substr(path.find_last_of("\\") + 1);
+            break;
+        case 2: //"linux"
+            name = path.substr(path.find_last_of("/") + 1);
+            break;
+        default:
+            throw BMPfileException(BMP_EXCEPT_FAIL_TO_EXTRACT_NAME);
+    }
+    return name;
+}
+
 void BMPfile::get_data_buffer(std::vector<unsigned char>& buff){
-    std::ifstream current_file(BMPfile::filename, std::ios_base::binary);
+    std::ifstream current_file(BMPfile::path, std::ios_base::binary);
     if (BMPfile::check_bmp_file()){
         while(current_file){ buff.push_back(current_file.get());}
     }
@@ -107,7 +133,7 @@ bool BMPfile::check_bmp_file(){
     // checks is a bmp file, no compressed and 24bbp.
 
     std::vector<unsigned char> magic_letters (2);
-    std::ifstream current_file(BMPfile::filename, std::ios_base::binary);
+    std::ifstream current_file(BMPfile::path, std::ios_base::binary);
 
     // check first the first 2 bytes that contains the magic letters BM.
     magic_letters[0] = current_file.get();
@@ -208,10 +234,11 @@ void BMPfile::init_dib_header(std::vector<unsigned char>& buffer){
 }
 
 void BMPfile::fetch_image(std::vector<unsigned char>& buffer){
+//BMP_FILE_HEADER_SIZE
     for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
         for(size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
             int pixel_index = i*(BMPfile::detailed_header->width_in_pixels * BYTES_PER_PIXEL +
-                                    BMPfile::padding) + j*BYTES_PER_PIXEL;
+                                    BMPfile::padding) + j*BYTES_PER_PIXEL + BMPfile::header->image_data_offset;
             BMPfile::image_data[i][j].blue = (uint8_t)buffer[pixel_index];
             BMPfile::image_data[i][j].green = (uint8_t)buffer[pixel_index+1];
             BMPfile::image_data[i][j].red = (uint8_t)buffer[pixel_index+2];
@@ -220,21 +247,69 @@ void BMPfile::fetch_image(std::vector<unsigned char>& buffer){
 }
 
 void BMPfile::generate_point_file(){
+    // check performance struct vs std::array    std::vector<bitmap_point> total_num_points;
     std::vector<bitmap_point> total_num_points;
     for (size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
         for (size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
             if (BMPfile::image_data[i][j].blue == BLACK_COLOR &&
                 BMPfile::image_data[i][j].green == BLACK_COLOR &&
                 BMPfile::image_data[i][j].red == BLACK_COLOR){
-                bitmap_point current_point = {&image_data[i][j], j, i};
+                //bitmap_point2 current_point = {j, i};
+                bitmap_point current_point = {j, i};
                 total_num_points.push_back(current_point);
             }
         }
     }
-    std::ofstream outfile("res1.txt");
+    size_t lastindex = BMPfile::filename.find_last_of(".");
+    std::string rawname = BMPfile::filename.substr(0, lastindex);
+    std::string new_name = "res_" + rawname + ".txt";
+
+    std::ofstream outfile(new_name);
     outfile << total_num_points.size() << std::endl;
     for(size_t i = 0; i < total_num_points.size(); ++i){
         outfile << total_num_points[i].x_coord << " " << total_num_points[i].y_coord << std::endl;
+        //outfile << total_num_points[i][0] << " " << total_num_points[i][1] << std::endl;
+
+    }
+    outfile.close();
+}
+
+void BMPfile::generate_bmp_file(){
+    uint8_t value_added = 0;
+    std::string new_name = "generated_from_" + BMPfile::filename;
+    // write in binary.
+    std::ofstream outfile(new_name, std::ios_base::binary);
+
+    outfile.write(reinterpret_cast<char*>(&BMPfile::header->b), sizeof(unsigned char));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::header->m), sizeof(unsigned char));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::header->total_size_in_bytes), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::header->reserved_fields), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::header->image_data_offset), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->dib_header_size), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->width_in_pixels), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->height_in_pixels), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->color_planes), sizeof(uint16_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->dot_size), sizeof(uint16_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->compression_method), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->image_size_bytes), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->horizontal_resolution), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->vertical_resolution), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->color_pallete_size), sizeof(uint32_t));
+    outfile.write(reinterpret_cast<char*>(&BMPfile::detailed_header->color_count), sizeof(uint32_t));
+
+    // padding must be added.
+    for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
+        for(size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
+
+            outfile.write(reinterpret_cast<char*>(&BMPfile::image_data[i][j].blue), sizeof(uint8_t));
+            outfile.write(reinterpret_cast<char*>(&BMPfile::image_data[i][j].green), sizeof(uint8_t));
+            outfile.write(reinterpret_cast<char*>(&BMPfile::image_data[i][j].red), sizeof(uint8_t));
+        }
+        // add padding.
+        for(uint8_t k = 0; k < (uint8_t)padding; ++k){
+            //outfile << (unsigned char)value_added;
+            outfile.write(reinterpret_cast<char*>(&value_added), sizeof(uint8_t));
+        }
     }
     outfile.close();
 }
