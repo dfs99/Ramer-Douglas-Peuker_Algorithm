@@ -24,3 +24,4 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(HEADERS)
 clean:
 	rm -r $(OBJS)
 	rm -r $(BIN)
+	rm -r bin/res1.txt

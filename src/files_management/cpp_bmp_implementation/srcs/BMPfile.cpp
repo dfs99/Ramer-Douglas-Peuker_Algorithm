@@ -231,7 +231,7 @@ void BMPfile::generate_point_file(){
             }
         }
     }
-    std::ofstream outfile("res.txt");
+    std::ofstream outfile("res1.txt");
     outfile << total_num_points.size() << std::endl;
     for(size_t i = 0; i < total_num_points.size(); ++i){
         outfile << total_num_points[i].x_coord << " " << total_num_points[i].y_coord << std::endl;
