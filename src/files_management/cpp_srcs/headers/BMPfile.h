@@ -8,7 +8,8 @@
 #include <exception>
 #include <string>
 #include <vector>
-#include <array>
+// check for speed up.
+// #include <array>
 
 struct pixel_24bpp{
     /*
@@ -97,14 +98,15 @@ class BMPfile{
 
 public:
     BMPfile(const std::string given_path);
-    //~BMPfile();     // destructor
-    void print_values ();
+    ~BMPfile();
+    void print_values (int code);
     void generate_point_file();
     void generate_bmp_file();
 
 };
 
-using bitmap_point2 = std::array<size_t, 2>;
+//using bitmap_point2 = std::array<size_t, 2>;
+// check for speed up.
 
 struct bitmap_point{
     size_t x_coord;

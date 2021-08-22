@@ -12,13 +12,16 @@
     #define PLATFORM_NAME 2 // "linux"
 #endif
 
+// padding
 #define BYTES_PER_PIXEL 3
 #define MOD_ALIGN_MEMORY 4
 
+// parsing file.
 #define BLACK_COLOR 0
 #define WHITE_COLOR 255
 #define BMP_FILE_HEADER_SIZE 54
 
+// bmp header offsets.
 #define BMP_HEADER_OFFSET_B 0
 #define BMP_HEADER_OFFSET_M 1
 #define BMP_HEADER_OFFSET_TOTAL_SIZE 2
@@ -36,19 +39,19 @@
 #define BMP_HEADER_OFFSET_COLOR_PALLETE 46
 #define BMP_HEADER_OFFSET_COLOR_COUNT 50
 
+// BMPfileException messages.
 const char* BMP_EXCEPT_OPENING_ERROR = "Error while opening the bmp file. The file either not exists nor has been placed in another directory";
 const char* BMP_EXCEPT_WRONG_TYPE = "Error, the file is not a BMP file.";
 const char* BMP_EXCEPT_WRONG_BBP = "Error, the BMP file is not 24bbp. Cannot be loaded.";
 const char* BMP_EXCEPT_COMPRESSION = "Error, the BMP has a compression method. It cannot have any compression methods.";
 const char* BMP_EXCEPT_FAIL_TO_EXTRACT_NAME = "Error, a failure has been occur while the name was being extracting from path.";
 
+
 BMPfile::BMPfile(const std::string given_path){
     path = BMPfile::is_exists(given_path) == true ? (std::string)given_path : throw BMPfileException(BMP_EXCEPT_OPENING_ERROR);
     filename = BMPfile::extract_filename_from_path();
-    // eliminar mmry
     std::vector<unsigned char> temp_buffer;
     BMPfile::get_data_buffer(temp_buffer);
-    // eliminar la memoria reservada.
     BMPfile::header = (struct bitmap_header*) malloc(sizeof(struct bitmap_header));
     BMPfile::detailed_header = (struct dib_header*) malloc(sizeof(struct dib_header));
     BMPfile::init_header(temp_buffer);
@@ -57,39 +60,66 @@ BMPfile::BMPfile(const std::string given_path){
     BMPfile::image_data = new pixel_24bpp* [BMPfile::detailed_header->height_in_pixels];
     for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
         BMPfile::image_data[i] = new pixel_24bpp [BMPfile::detailed_header->width_in_pixels];
-        }
+    }
     BMPfile::fetch_image(temp_buffer);
 }
 
-void BMPfile::print_values (){
-    std::cout << "CUrrent os using: " << (PLATFORM_NAME == 1 ? "windows" : "linux") << std::endl;
-    std::cout << "Filename: " << BMPfile::filename << std::endl;
-    std::cout << "HEADER VALUES" << std::endl;
-    std::cout << BMPfile::header->b << " ";
-    std::cout << BMPfile::header->m << " ";
-    std::cout << BMPfile::header->total_size_in_bytes << " ";
-    std::cout << BMPfile::header->reserved_fields << " ";
-    std::cout << BMPfile::header->image_data_offset << " ";
-    std::cout << std::endl << "DIB HEADER VALUES" << std::endl;
-    std::cout << BMPfile::detailed_header->dib_header_size << " ";
-    std::cout << BMPfile::detailed_header->width_in_pixels << " ";
-    std::cout << BMPfile::detailed_header->height_in_pixels << " ";
-    std::cout << BMPfile::detailed_header->color_planes << " ";
-    std::cout << BMPfile::detailed_header->dot_size << " ";
-    std::cout << BMPfile::detailed_header->compression_method << " ";
-    std::cout << BMPfile::detailed_header->image_size_bytes << " ";
-    std::cout << BMPfile::detailed_header->horizontal_resolution << " ";
-    std::cout << BMPfile::detailed_header->vertical_resolution << " ";
-    std::cout << BMPfile::detailed_header->color_pallete_size << " ";
-    std::cout << BMPfile::detailed_header->color_count << " ";
-    std::cout << std::endl << "IMAGE DATA" << std::endl;
-    /*for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
-        for(size_t j = 0; j < BMPfile::detailed_header->width_in_pixels; ++j){
-            std::cout << "Pixel: b" << (int)BMPfile::image_data[i][j].blue << " g" << (int)BMPfile::image_data[i][j].green
-            << " r" << (int)BMPfile::image_data[i][j].red << " ";
-        }
-        std::cout << std::endl;
-    }*/
+BMPfile::~BMPfile(){
+    for(size_t i = 0; i < BMPfile::detailed_header->height_in_pixels; ++i){
+        delete [] BMPfile::image_data[i];
+    }
+    delete [] BMPfile::image_data;
+    free(BMPfile::header);
+    free(BMPfile::detailed_header);
+}
+
+void BMPfile::print_values (int code=2){
+    switch(code){
+        case 0: break; // nothing gets printed out.
+        case 1:        // prints detailed information.
+            std::cout << "Current os using: " << (PLATFORM_NAME == 1 ? "windows" : "linux") << std::endl;
+            std::cout << "Filename: " << BMPfile::filename << std::endl;
+            std::cout << std::endl;
+            std::cout << "HEADER VALUES" << std::endl;
+            std::cout << "\tB: " << BMPfile::header->b << std::endl;
+            std::cout << "\tM: " << BMPfile::header->m << std::endl;
+            std::cout << "\tTotal size (bytes): " << BMPfile::header->total_size_in_bytes << std::endl;
+            std::cout << "\tReserved fields: " << BMPfile::header->reserved_fields << std::endl;
+            std::cout << "\tImage offset: " << BMPfile::header->image_data_offset << std::endl;
+            std::cout << std::endl;
+            std::cout << "DIB HEADER VALUES" << std::endl;
+            std::cout << "\tDib header size: " << BMPfile::detailed_header->dib_header_size << std::endl;
+            std::cout << "\tWidth (pixels): " << BMPfile::detailed_header->width_in_pixels << std::endl;
+            std::cout << "\tHeight (pixels): " << BMPfile::detailed_header->height_in_pixels << std::endl;
+            std::cout << "\tColor planes: " << BMPfile::detailed_header->color_planes << std::endl;
+            std::cout << "\tDot size (bbp): " << BMPfile::detailed_header->dot_size << std::endl;
+            std::cout << "\tCompression Method: " << BMPfile::detailed_header->compression_method << std::endl;
+            std::cout << "\tImage size (bytes): " << BMPfile::detailed_header->image_size_bytes << std::endl;
+            std::cout << "\tHorizontal Resolution: " << BMPfile::detailed_header->horizontal_resolution << std::endl;
+            std::cout << "\tVertical Resolution: " << BMPfile::detailed_header->vertical_resolution << std::endl;
+            std::cout << "\tColor Pallete size: " << BMPfile::detailed_header->color_pallete_size << std::endl;
+            std::cout << "\tColor count: " << BMPfile::detailed_header->color_count << std::endl;
+            break;
+        default:    // prints simple info.
+            std::cout << "HEADER VALUES" << std::endl;
+            std::cout << BMPfile::header->b << " ";
+            std::cout << BMPfile::header->m << " ";
+            std::cout << BMPfile::header->total_size_in_bytes << " ";
+            std::cout << BMPfile::header->reserved_fields << " ";
+            std::cout << BMPfile::header->image_data_offset << " ";
+            std::cout << std::endl << "DIB HEADER VALUES" << std::endl;
+            std::cout << BMPfile::detailed_header->dib_header_size << " ";
+            std::cout << BMPfile::detailed_header->width_in_pixels << " ";
+            std::cout << BMPfile::detailed_header->height_in_pixels << " ";
+            std::cout << BMPfile::detailed_header->color_planes << " ";
+            std::cout << BMPfile::detailed_header->dot_size << " ";
+            std::cout << BMPfile::detailed_header->compression_method << " ";
+            std::cout << BMPfile::detailed_header->image_size_bytes << " ";
+            std::cout << BMPfile::detailed_header->horizontal_resolution << " ";
+            std::cout << BMPfile::detailed_header->vertical_resolution << " ";
+            std::cout << BMPfile::detailed_header->color_pallete_size << " ";
+            std::cout << BMPfile::detailed_header->color_count << " ";
+    }
 }
 
 

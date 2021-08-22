@@ -1,5 +1,6 @@
 CPP=g++
 CPPFLAGS= -g -Wall
+CPPVERSION = -std=c++17
 
 # directories.
 SRC_DIR = srcs
@@ -16,10 +17,10 @@ BIN = $(BIN_DIR)/main
 all: $(BIN)
 
 $(BIN) : $(OBJS)
-	$(CPP)	$(CPPFLAGS) -o $@ $(OBJS)
+	$(CPP)	$(CPPFLAGS) $(CPPVERSION) -o $@ $(OBJS)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(HEADERS)
-	$(CPP) -c $< -o $@
+	$(CPP) $(CPPVERSION) -c $< -o $@
 
 clean:
 	rm -r $(OBJS)
