@@ -1,6 +1,6 @@
 CPP=g++
 CPPFLAGS= -g -Wall
-CPPVERSION = -std=c++17
+CPPVERSION = -std=c++17 -O3
 
 # directories.
 SRC_DIR = srcs
@@ -25,4 +25,4 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(HEADERS)
 clean:
 	rm -r $(OBJS)
 	rm -r $(BIN)
-	rm -rf $(BIN_DIR)/res_* $(BIN_DIR)/generated_from_*
+	rm -rf $(BIN_DIR)/res_* $(BIN_DIR)/generated_from_* $(BIN_DIR)/rdp_data_*

@@ -127,7 +127,7 @@ struct bitmap_point{
 class BMPfileException : public std::exception {
     const char *message_;
 public:
-    BMPfileException(const char* msg);
+    explicit BMPfileException(const char* msg);
     virtual char const* what() const throw();
 };
 
