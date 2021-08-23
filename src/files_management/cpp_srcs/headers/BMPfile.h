@@ -80,13 +80,32 @@ struct dib_header{
 };
 
 class BMPfile{
-    std::string path;
-    std::string filename;
-    int padding;
-    struct bitmap_header *header;
-    struct dib_header *detailed_header;
-    struct pixel_24bpp **image_data;
+public:
+    explicit BMPfile(const std::string given_path);
+    ~BMPfile();
 
+    // const keyword, no attr are modified.
+    std::string get_path() const noexcept;
+    std::string get_filename() const noexcept;
+    int get_padding() const noexcept;
+    struct bitmap_header* get_header() const noexcept;
+    struct pixel_24bpp** get_image_data() const noexcept;
+    struct dib_header* get_detailed_header() const noexcept;
+
+    void print_values (int code) const;
+    void generate_point_file() const;
+    void generate_bmp_file() const;
+
+private:
+    // Attrs.
+    std::string path_;
+    std::string filename_;
+    int padding_;
+    struct bitmap_header* header_;
+    struct dib_header* detailed_header_;
+    struct pixel_24bpp** image_data_;
+
+    // funcs used to set up instances @ constructor
     int set_padding();
     bool is_exists(const std::string& path);
     std::string extract_filename_from_path();
@@ -95,14 +114,6 @@ class BMPfile{
     void init_header(std::vector<unsigned char>& buffer);
     void init_dib_header(std::vector<unsigned char>& buffer);
     void fetch_image(std::vector<unsigned char>& buffer);
-
-public:
-    BMPfile(const std::string given_path);
-    ~BMPfile();
-    void print_values (int code);
-    void generate_point_file();
-    void generate_bmp_file();
-
 };
 
 //using bitmap_point2 = std::array<size_t, 2>;
@@ -114,7 +125,7 @@ struct bitmap_point{
 };
 
 class BMPfileException : public std::exception {
-    const char *message;
+    const char *message_;
 public:
     BMPfileException(const char* msg);
     virtual char const* what() const throw();
