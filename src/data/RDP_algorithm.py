@@ -1,7 +1,7 @@
 import statistics
 from src.data import Point
 from src.data import Line
-from src.files_management import benchmark
+from src.files_management import PerformancePy
 from src.exceptions import RDPException
 
 
@@ -121,7 +121,7 @@ class RamerDouglasPeukerAlgorithm:
             self.plot_solver(start_point, start)
             self.plot_solver(start, end)
 
-    @benchmark
+    @PerformancePy.benchmark
     def __get_solver_statistics(self):
         """
         Executes one time the algorithm and measures its performance.
