@@ -2,6 +2,7 @@
 #include "../headers/BMPfile.h"
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 
 
 const char* RDP_EXCEPT_FAIL_TO_DELETE = "Error, A problem has occurred while deleting BMP aux file.";
@@ -37,6 +38,6 @@ void RDPfile::generate_input_rdp_data(){
     output << input.rdbuf();
     output.close();
 
-    // delete input file source
+    // delete input file source Problems with remove, try to close input ifstream as well.
     if (remove(input_filename.c_str()) != 0) throw RDPfileException(RDP_EXCEPT_FAIL_TO_DELETE);
 }
