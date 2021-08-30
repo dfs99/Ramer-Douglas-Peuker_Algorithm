@@ -148,7 +148,8 @@ std::string BMPfile::extract_filename_from_path(){
     std::string name;
     switch(PLATFORM_NAME){
         case 1: //"windows"
-            name = BMPfile::get_path().substr(BMPfile::get_path().find_last_of("\\") + 1);
+            // Using MinGW compiler @ windows 10 forward slashes work.
+            name = BMPfile::get_path().substr(BMPfile::get_path().find_last_of("/") + 1);
             break;
         case 2: //"linux"
             name = BMPfile::get_path().substr(BMPfile::get_path().find_last_of("/") + 1);
@@ -283,7 +284,7 @@ void BMPfile::fetch_image(std::vector<unsigned char>& buffer){
     }
 }
 
-void BMPfile::generate_point_file() const{
+void BMPfile::generate_point_file () const{
     // check performance struct vs std::array    std::vector<bitmap_point2> total_num_points;
     std::vector<bitmap_point> total_num_points;
     for (size_t i = 0; i < BMPfile::get_detailed_header()->height_in_pixels; ++i){
@@ -301,14 +302,15 @@ void BMPfile::generate_point_file() const{
     std::string rawname = BMPfile::get_filename().substr(0, lastindex);
     std::string new_name = "res_" + rawname + ".txt";
 
-    std::ofstream outfile(new_name);
-    outfile << total_num_points.size() << std::endl;
+    std::ofstream output(new_name);
+
+    output << total_num_points.size() << std::endl;
     for(size_t i = 0; i < total_num_points.size(); ++i){
-        outfile << total_num_points[i].x_coord << " " << total_num_points[i].y_coord << std::endl;
+        output << total_num_points[i].x_coord << " " << total_num_points[i].y_coord << std::endl;
         //outfile << total_num_points[i][0] << " " << total_num_points[i][1] << std::endl;
 
     }
-    outfile.close();
+    output.close();
 }
 
 void BMPfile::generate_bmp_file() const{

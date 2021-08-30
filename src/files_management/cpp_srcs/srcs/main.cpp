@@ -8,9 +8,9 @@ using namespace std;
 int main(){
     const string filename = "../images/spain_map.bmp";
     auto start1 = std::chrono::system_clock::now();
-    BMPfile my_file {filename};
+    BMPfile my_file1 {filename};
     try{
-        //BMPfile my_file {filename};
+        BMPfile my_file {filename};
         //my_file.generate_point_file();
         my_file.print_values(0);
         //my_file.generate_bmp_file();
@@ -25,7 +25,7 @@ int main(){
 
     auto start2 = std::chrono::system_clock::now();
     try{
-        RDPfile generator (my_file, 0.123);
+        RDPfile generator (my_file1, 0.123);
         generator.generate_input_rdp_data();
     } catch (const exception & e) {
         cerr << e.what() << endl;

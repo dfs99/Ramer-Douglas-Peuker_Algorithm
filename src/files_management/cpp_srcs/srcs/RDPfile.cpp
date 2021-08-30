@@ -36,8 +36,9 @@ void RDPfile::generate_input_rdp_data(){
 
     // copy paste data from ifstream to ofstream.
     output << input.rdbuf();
+    //close fstreams.
     output.close();
+    input.close();
 
-    // delete input file source Problems with remove, try to close input ifstream as well.
     if (remove(input_filename.c_str()) != 0) throw RDPfileException(RDP_EXCEPT_FAIL_TO_DELETE);
 }
