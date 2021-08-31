@@ -35,6 +35,10 @@ int main(){
     std::chrono::duration<double>duration2 = end2 - start2;
     auto milliseconds2 = std::chrono::duration_cast<std::chrono::milliseconds>(duration2).count();
     cout << "Elapsed time rdp generator:\t" << milliseconds2 << " ms " << endl;
-
+    BMPfile* current_ptr;
+    current_ptr = new BMPfile("../images/spain_map.bmp");
+    current_ptr->generate_bmp_file();
+    current_ptr->print_values(2);
+    std::cout << "fiiinn << std::endl;
     return 0;
 }

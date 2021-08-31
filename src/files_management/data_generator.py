@@ -1,1 +1,0 @@
-# una clase q genere automáticamente funciones matemáticas como seno coseno???
