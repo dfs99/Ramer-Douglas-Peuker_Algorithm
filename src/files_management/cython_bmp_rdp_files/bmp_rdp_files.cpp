@@ -4,24 +4,27 @@
 {
     "distutils": {
         "depends": [
-            "src/files_management/cpp_srcs/headers/BMPfile.h"
+            "src/files_management/cpp_srcs/headers/RDPfile.h"
         ],
         "include_dirs": [
-            "src/files_management/cython_src/bmp_file_cython",
-            "./src/files_management/cython_src/bmp_file_cython"
+            "src/files_management/cython_bmp_rdp_files",
+            "./src/files_management/cython_bmp_rdp_files"
         ],
         "language": "c++",
         "library_dirs": [
-            "src/files_management/cpp_srcs/headers/BMPfile.h"
+            "src/files_management/cpp_srcs/headers/BMPfile.h",
+            "src/files_management/cpp_srcs/headers/RDPfile.h"
         ],
-        "name": "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs",
+        "name": "src.files_management.cython_bmp_rdp_files.bmp_rdp_files",
         "sources": [
-            "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx",
+            "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx",
             "src/files_management/cpp_srcs/srcs/BMPfile.cpp",
-            "src/files_management/cpp_srcs/srcs/BMPfileException.cpp"
+            "src/files_management/cpp_srcs/srcs/RDPfile.cpp",
+            "src/files_management/cpp_srcs/srcs/BMPfileException.cpp",
+            "src/files_management/cpp_srcs/srcs/RDPfileException.cpp"
         ]
     },
-    "module_name": "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs"
+    "module_name": "src.files_management.cython_bmp_rdp_files.bmp_rdp_files"
 }
 END: Cython Metadata */
 
@@ -651,8 +654,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__src__files_management__cython_src__bmp_file_cython__bmpfile_data_structs
-#define __PYX_HAVE_API__src__files_management__cython_src__bmp_file_cython__bmpfile_data_structs
+#define __PYX_HAVE__src__files_management__cython_bmp_rdp_files__bmp_rdp_files
+#define __PYX_HAVE_API__src__files_management__cython_bmp_rdp_files__bmp_rdp_files
 /* Early includes */
 #include <string.h>
 #include <string>
@@ -661,8 +664,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "stdexcept"
 #include "typeinfo"
 #include <stdint.h>
-#include "../../cpp_srcs/headers/BMPfile.h"
-#include <vector>
+#include "../cpp_srcs/headers/RDPfile.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -872,22 +874,36 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "stringsource",
-  "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx",
+  "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile;
+struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile;
+struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile;
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":10
- * 
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":7
+ * from libcpp.string cimport string
  * 
  * cdef class PyBMPfile:             # <<<<<<<<<<<<<<
  *     cdef BMPfile *cpp_bmp
  *     def __cinit__(self, path):
  */
-struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile {
+struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile {
   PyObject_HEAD
   BMPfile *cpp_bmp;
+};
+
+
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":37
+ * 
+ * 
+ * cdef class PyRDPfile:             # <<<<<<<<<<<<<<
+ *     cdef RDPfile* cpp_rdp
+ * 
+ */
+struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile {
+  PyObject_HEAD
+  RDPfile *cpp_rdp;
 };
 
 
@@ -1022,6 +1038,12 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* ArgTypeTest.proto */
+#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
+    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
+        __Pyx__ArgTypeTest(obj, type, name, exact))
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
 
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
@@ -1188,22 +1210,22 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libc.stdint' */
 
-/* Module declarations from 'libcpp.vector' */
-
-/* Module declarations from 'src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs' */
-static PyTypeObject *__pyx_ptype_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile = 0;
+/* Module declarations from 'src.files_management.cython_bmp_rdp_files.bmp_rdp_files' */
+static PyTypeObject *__pyx_ptype_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile = 0;
+static PyTypeObject *__pyx_ptype_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile = 0;
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &); /*proto*/
-#define __Pyx_MODULE_NAME "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs"
-extern int __pyx_module_is_main_src__files_management__cython_src__bmp_file_cython__bmpfile_data_structs;
-int __pyx_module_is_main_src__files_management__cython_src__bmp_file_cython__bmpfile_data_structs = 0;
+#define __Pyx_MODULE_NAME "src.files_management.cython_bmp_rdp_files.bmp_rdp_files"
+extern int __pyx_module_is_main_src__files_management__cython_bmp_rdp_files__bmp_rdp_files;
+int __pyx_module_is_main_src__files_management__cython_bmp_rdp_files__bmp_rdp_files = 0;
 
-/* Implementation of 'src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs' */
+/* Implementation of 'src.files_management.cython_bmp_rdp_files.bmp_rdp_files' */
 static PyObject *__pyx_builtin_TypeError;
+static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_path[] = "path";
@@ -1212,15 +1234,20 @@ static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_PyBMPfile[] = "PyBMPfile";
+static const char __pyx_k_PyRDPfile[] = "PyRDPfile";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
+static const char __pyx_k_epsilon_error[] = "epsilon_error";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static PyObject *__pyx_n_s_PyBMPfile;
+static PyObject *__pyx_n_s_PyRDPfile;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_epsilon_error;
+static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
@@ -1232,22 +1259,31 @@ static PyObject *__pyx_n_s_reduce_ex;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_test;
-static int __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile___cinit__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_path); /* proto */
-static void __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4show_info(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_ivalue); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_6generate_point_file(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8generate_bmp_file(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile___cinit__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_path); /* proto */
+static void __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4show_info(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_ivalue); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_6generate_point_file(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8generate_bmp_file(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile___cinit__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self, struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_file, double __pyx_v_epsilon_error); /* proto */
+static void __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__4;
 /* Late includes */
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":12
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":9
  * cdef class PyBMPfile:
  *     cdef BMPfile *cpp_bmp
  *     def __cinit__(self, path):             # <<<<<<<<<<<<<<
@@ -1256,8 +1292,8 @@ static PyObject *__pyx_tuple__2;
  */
 
 /* Python wrapper */
-static int __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_path = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -1284,7 +1320,7 @@ static int __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmp
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 12, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 9, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
@@ -1295,20 +1331,20 @@ static int __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmp
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 12, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 9, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile___cinit__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self), __pyx_v_path);
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile___cinit__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self), __pyx_v_path);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile___cinit__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_path) {
+static int __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile___cinit__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_path) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   std::string __pyx_t_1;
@@ -1318,23 +1354,23 @@ static int __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmp
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":13
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":10
  *     cdef BMPfile *cpp_bmp
  *     def __cinit__(self, path):
  *         self.cpp_bmp = new BMPfile(path)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_v_path); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_v_path); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 10, __pyx_L1_error)
   try {
     __pyx_t_2 = new BMPfile(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 13, __pyx_L1_error)
+    __PYX_ERR(1, 10, __pyx_L1_error)
   }
   __pyx_v_self->cpp_bmp = __pyx_t_2;
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":12
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":9
  * cdef class PyBMPfile:
  *     cdef BMPfile *cpp_bmp
  *     def __cinit__(self, path):             # <<<<<<<<<<<<<<
@@ -1346,14 +1382,14 @@ static int __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmp
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":15
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":12
  *         self.cpp_bmp = new BMPfile(path)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1362,21 +1398,21 @@ static int __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmp
  */
 
 /* Python wrapper */
-static void __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_2__dealloc__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_2__dealloc__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static void __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":16
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":13
  * 
  *     def __dealloc__(self):
  *         del self.cpp_bmp             # <<<<<<<<<<<<<<
@@ -1385,7 +1421,7 @@ static void __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bm
  */
   delete __pyx_v_self->cpp_bmp;
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":15
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":12
  *         self.cpp_bmp = new BMPfile(path)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1397,7 +1433,7 @@ static void __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bm
   __Pyx_RefNannyFinishContext();
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":19
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":16
  * 
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
@@ -1406,19 +1442,19 @@ static void __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bm
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path___get__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path___get__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1427,7 +1463,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":20
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":17
  *     @property
  *     def path(self):
  *         return deref(self.cpp_bmp).get_path()             # <<<<<<<<<<<<<<
@@ -1435,13 +1471,13 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string((*__pyx_v_self->cpp_bmp).get_path()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 20, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string((*__pyx_v_self->cpp_bmp).get_path()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":19
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":16
  * 
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
@@ -1452,7 +1488,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.path.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.path.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1460,7 +1496,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":23
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":20
  * 
  *     @property
  *     def filename(self):             # <<<<<<<<<<<<<<
@@ -1469,19 +1505,19 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename___get__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename___get__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1490,7 +1526,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":24
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":21
  *     @property
  *     def filename(self):
  *         return deref(self.cpp_bmp).get_filename()             # <<<<<<<<<<<<<<
@@ -1498,13 +1534,13 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string((*__pyx_v_self->cpp_bmp).get_filename()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string((*__pyx_v_self->cpp_bmp).get_filename()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":23
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":20
  * 
  *     @property
  *     def filename(self):             # <<<<<<<<<<<<<<
@@ -1515,7 +1551,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.filename.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.filename.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1523,7 +1559,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":27
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":24
  * 
  *     @property
  *     def padding(self):             # <<<<<<<<<<<<<<
@@ -1532,19 +1568,19 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding___get__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding___get__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding___get__(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1553,7 +1589,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":28
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":25
  *     @property
  *     def padding(self):
  *         return deref(self.cpp_bmp).get_padding()             # <<<<<<<<<<<<<<
@@ -1561,13 +1597,13 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  *     def show_info(self, ivalue):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int((*__pyx_v_self->cpp_bmp).get_padding()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 28, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int((*__pyx_v_self->cpp_bmp).get_padding()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":27
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":24
  * 
  *     @property
  *     def padding(self):             # <<<<<<<<<<<<<<
@@ -1578,7 +1614,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.padding.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.padding.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1586,7 +1622,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":30
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":27
  *         return deref(self.cpp_bmp).get_padding()
  * 
  *     def show_info(self, ivalue):             # <<<<<<<<<<<<<<
@@ -1595,19 +1631,19 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_5show_info(PyObject *__pyx_v_self, PyObject *__pyx_v_ivalue); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_5show_info(PyObject *__pyx_v_self, PyObject *__pyx_v_ivalue) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_5show_info(PyObject *__pyx_v_self, PyObject *__pyx_v_ivalue); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_5show_info(PyObject *__pyx_v_self, PyObject *__pyx_v_ivalue) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("show_info (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4show_info(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self), ((PyObject *)__pyx_v_ivalue));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4show_info(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self), ((PyObject *)__pyx_v_ivalue));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4show_info(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_ivalue) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4show_info(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, PyObject *__pyx_v_ivalue) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -1616,17 +1652,17 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("show_info", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":31
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":28
  * 
  *     def show_info(self, ivalue):
  *         deref(self.cpp_bmp).print_values(ivalue)             # <<<<<<<<<<<<<<
  * 
  *     def generate_point_file(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_ivalue); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_ivalue); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 28, __pyx_L1_error)
   (*__pyx_v_self->cpp_bmp).print_values(__pyx_t_1);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":30
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":27
  *         return deref(self.cpp_bmp).get_padding()
  * 
  *     def show_info(self, ivalue):             # <<<<<<<<<<<<<<
@@ -1638,7 +1674,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.show_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.show_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1646,7 +1682,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":33
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":30
  *         deref(self.cpp_bmp).print_values(ivalue)
  * 
  *     def generate_point_file(self):             # <<<<<<<<<<<<<<
@@ -1655,24 +1691,24 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7generate_point_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7generate_point_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7generate_point_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7generate_point_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("generate_point_file (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_6generate_point_file(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_6generate_point_file(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_6generate_point_file(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_6generate_point_file(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("generate_point_file", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":34
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":31
  * 
  *     def generate_point_file(self):
  *         deref(self.cpp_bmp).generate_point_file()             # <<<<<<<<<<<<<<
@@ -1681,7 +1717,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
   (*__pyx_v_self->cpp_bmp).generate_point_file();
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":33
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":30
  *         deref(self.cpp_bmp).print_values(ivalue)
  * 
  *     def generate_point_file(self):             # <<<<<<<<<<<<<<
@@ -1696,7 +1732,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   return __pyx_r;
 }
 
-/* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":36
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":33
  *         deref(self.cpp_bmp).generate_point_file()
  * 
  *     def generate_bmp_file(self):             # <<<<<<<<<<<<<<
@@ -1705,33 +1741,33 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_9generate_bmp_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_9generate_bmp_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_9generate_bmp_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_9generate_bmp_file(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("generate_bmp_file (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8generate_bmp_file(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8generate_bmp_file(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8generate_bmp_file(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8generate_bmp_file(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("generate_bmp_file", 0);
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":37
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":34
  * 
  *     def generate_bmp_file(self):
  *         deref(self.cpp_bmp).generate_bmp_file()             # <<<<<<<<<<<<<<
  * 
- *         #int set_padding()
+ * 
  */
   (*__pyx_v_self->cpp_bmp).generate_bmp_file();
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":36
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":33
  *         deref(self.cpp_bmp).generate_point_file()
  * 
  *     def generate_bmp_file(self):             # <<<<<<<<<<<<<<
@@ -1753,19 +1789,19 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_10__reduce_cython__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_10__reduce_cython__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1795,7 +1831,7 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -1810,19 +1846,19 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_12__setstate_cython__(((struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_12__setstate_cython__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1852,7 +1888,393 @@ static PyObject *__pyx_pf_3src_16files_management_10cython_src_15bmp_file_cython
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":40
+ *     cdef RDPfile* cpp_rdp
+ * 
+ *     def __cinit__(self, PyBMPfile file, double epsilon_error):             # <<<<<<<<<<<<<<
+ *         self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_file = 0;
+  double __pyx_v_epsilon_error;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_file,&__pyx_n_s_epsilon_error,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_file)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_epsilon_error)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(1, 40, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 40, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_file = ((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *)values[0]);
+    __pyx_v_epsilon_error = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_epsilon_error == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 40, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 40, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_file), __pyx_ptype_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile, 1, "file", 0))) __PYX_ERR(1, 40, __pyx_L1_error)
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile___cinit__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self), __pyx_v_file, __pyx_v_epsilon_error);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile___cinit__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self, struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile *__pyx_v_file, double __pyx_v_epsilon_error) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  RDPfile *__pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":41
+ * 
+ *     def __cinit__(self, PyBMPfile file, double epsilon_error):
+ *         self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)             # <<<<<<<<<<<<<<
+ * 
+ *     def __dealloc__(self):
+ */
+  try {
+    __pyx_t_1 = new RDPfile((*__pyx_v_file->cpp_bmp), __pyx_v_epsilon_error);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(1, 41, __pyx_L1_error)
+  }
+  __pyx_v_self->cpp_rdp = __pyx_t_1;
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":40
+ *     cdef RDPfile* cpp_rdp
+ * 
+ *     def __cinit__(self, PyBMPfile file, double epsilon_error):             # <<<<<<<<<<<<<<
+ *         self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":43
+ *         self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self.cpp_rdp
+ * 
+ */
+
+/* Python wrapper */
+static void __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_3__dealloc__(PyObject *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
+  __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_2__dealloc__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+static void __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_2__dealloc__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__", 0);
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":44
+ * 
+ *     def __dealloc__(self):
+ *         del self.cpp_rdp             # <<<<<<<<<<<<<<
+ * 
+ *     @property
+ */
+  delete __pyx_v_self->cpp_rdp;
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":43
+ *         self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self.cpp_rdp
+ * 
+ */
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":47
+ * 
+ *     @property
+ *     def epsilon_error(self):             # <<<<<<<<<<<<<<
+ *         return deref(self.cpp_rdp).get_epsilon_error()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error___get__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error___get__(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__get__", 0);
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":48
+ *     @property
+ *     def epsilon_error(self):
+ *         return deref(self.cpp_rdp).get_epsilon_error()             # <<<<<<<<<<<<<<
+ * 
+ *     def generate_input_rdp_data(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble((*__pyx_v_self->cpp_rdp).get_epsilon_error()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 48, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":47
+ * 
+ *     @property
+ *     def epsilon_error(self):             # <<<<<<<<<<<<<<
+ *         return deref(self.cpp_rdp).get_epsilon_error()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.epsilon_error.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":50
+ *         return deref(self.cpp_rdp).get_epsilon_error()
+ * 
+ *     def generate_input_rdp_data(self):             # <<<<<<<<<<<<<<
+ *         deref(self.cpp_rdp).generate_input_rdp_data()
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("generate_input_rdp_data (wrapper)", 0);
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("generate_input_rdp_data", 0);
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":51
+ * 
+ *     def generate_input_rdp_data(self):
+ *         deref(self.cpp_rdp).generate_input_rdp_data()             # <<<<<<<<<<<<<<
+ */
+  (*__pyx_v_self->cpp_rdp).generate_input_rdp_data();
+
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":50
+ *         return deref(self.cpp_rdp).get_epsilon_error()
+ * 
+ *     def generate_input_rdp_data(self):             # <<<<<<<<<<<<<<
+ *         deref(self.cpp_rdp).generate_input_rdp_data()
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_6__reduce_cython__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 2, __pyx_L1_error)
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_8__setstate_cython__(((struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 4, __pyx_L1_error)
+
+  /* "(tree fragment)":3
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -2173,7 +2595,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -2181,14 +2603,14 @@ static PyObject *__pyx_tp_new_3src_16files_management_10cython_src_15bmp_file_cy
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_1__cinit__(o, a, k) < 0)) goto bad;
+  if (unlikely(__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_1__cinit__(o, a, k) < 0)) goto bad;
   return o;
   bad:
   Py_DECREF(o); o = 0;
   return NULL;
 }
 
-static void __pyx_tp_dealloc_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile(PyObject *o) {
+static void __pyx_tp_dealloc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -2198,47 +2620,47 @@ static void __pyx_tp_dealloc_3src_16files_management_10cython_src_15bmp_file_cyt
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     __Pyx_SET_REFCNT(o, Py_REFCNT(o) + 1);
-    __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_3__dealloc__(o);
+    __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_3__dealloc__(o);
     __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyObject *__pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_path(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_4path_1__get__(o);
+static PyObject *__pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_path(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_4path_1__get__(o);
 }
 
-static PyObject *__pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_filename(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_8filename_1__get__(o);
+static PyObject *__pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_filename(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_8filename_1__get__(o);
 }
 
-static PyObject *__pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_padding(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7padding_1__get__(o);
+static PyObject *__pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_padding(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7padding_1__get__(o);
 }
 
-static PyMethodDef __pyx_methods_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile[] = {
-  {"show_info", (PyCFunction)__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_5show_info, METH_O, 0},
-  {"generate_point_file", (PyCFunction)__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_7generate_point_file, METH_NOARGS, 0},
-  {"generate_bmp_file", (PyCFunction)__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_9generate_bmp_file, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_11__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_13__setstate_cython__, METH_O, 0},
+static PyMethodDef __pyx_methods_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile[] = {
+  {"show_info", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_5show_info, METH_O, 0},
+  {"generate_point_file", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_7generate_point_file, METH_NOARGS, 0},
+  {"generate_bmp_file", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_9generate_bmp_file, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_11__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_13__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile[] = {
-  {(char *)"path", __pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_path, 0, (char *)0, 0},
-  {(char *)"filename", __pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_filename, 0, (char *)0, 0},
-  {(char *)"padding", __pyx_getprop_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_9PyBMPfile_padding, 0, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile[] = {
+  {(char *)"path", __pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_path, 0, (char *)0, 0},
+  {(char *)"filename", __pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_filename, 0, (char *)0, 0},
+  {(char *)"padding", __pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyBMPfile_padding, 0, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile = {
+static PyTypeObject __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile = {
   PyVarObject_HEAD_INIT(0, 0)
-  "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs.PyBMPfile", /*tp_name*/
-  sizeof(struct __pyx_obj_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile), /*tp_basicsize*/
+  "src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyBMPfile", /*tp_name*/
+  sizeof(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile, /*tp_dealloc*/
+  __pyx_tp_dealloc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -2271,9 +2693,9 @@ static PyTypeObject __pyx_type_3src_16files_management_10cython_src_15bmp_file_c
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile, /*tp_methods*/
+  __pyx_methods_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile, /*tp_getset*/
+  __pyx_getsets_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
@@ -2281,7 +2703,124 @@ static PyTypeObject __pyx_type_3src_16files_management_10cython_src_15bmp_file_c
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile, /*tp_new*/
+  __pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4 && PY_VERSION_HEX < 0x03090000
+  0, /*tp_print*/
+  #endif
+};
+
+static PyObject *__pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile(PyTypeObject *t, PyObject *a, PyObject *k) {
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  if (unlikely(__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_1__cinit__(o, a, k) < 0)) goto bad;
+  return o;
+  bad:
+  Py_DECREF(o); o = 0;
+  return NULL;
+}
+
+static void __pyx_tp_dealloc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile(PyObject *o) {
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  {
+    PyObject *etype, *eval, *etb;
+    PyErr_Fetch(&etype, &eval, &etb);
+    __Pyx_SET_REFCNT(o, Py_REFCNT(o) + 1);
+    __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_3__dealloc__(o);
+    __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
+    PyErr_Restore(etype, eval, etb);
+  }
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static PyObject *__pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_epsilon_error(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_13epsilon_error_1__get__(o);
+}
+
+static PyMethodDef __pyx_methods_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile[] = {
+  {"generate_input_rdp_data", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_7__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_9__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static struct PyGetSetDef __pyx_getsets_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile[] = {
+  {(char *)"epsilon_error", __pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_epsilon_error, 0, (char *)0, 0},
+  {0, 0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile", /*tp_name*/
+  sizeof(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile, /*tp_dealloc*/
+  #if PY_VERSION_HEX < 0x030800b4
+  0, /*tp_print*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4
+  0, /*tp_vectorcall_offset*/
+  #endif
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  0, /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile, /*tp_methods*/
+  0, /*tp_members*/
+  __pyx_getsets_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -2309,17 +2848,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_bmpfile_data_structs(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_bmp_rdp_files(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_bmpfile_data_structs},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_bmp_rdp_files},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "bmpfile_data_structs",
+    "bmp_rdp_files",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -2349,8 +2888,11 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_PyBMPfile, __pyx_k_PyBMPfile, sizeof(__pyx_k_PyBMPfile), 0, 0, 1, 1},
+  {&__pyx_n_s_PyRDPfile, __pyx_k_PyRDPfile, sizeof(__pyx_k_PyRDPfile), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_epsilon_error, __pyx_k_epsilon_error, sizeof(__pyx_k_epsilon_error), 0, 0, 1, 1},
+  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -2393,6 +2935,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
+
+  /* "(tree fragment)":2
+ * def __reduce_cython__(self):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "(tree fragment)":4
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
+ * def __setstate_cython__(self, __pyx_state):
+ *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
+ */
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2446,16 +3007,26 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile) < 0) __PYX_ERR(1, 7, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile.tp_print = 0;
+  __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile.tp_dictoffset && __pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile.tp_dictoffset && __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyBMPfile, (PyObject *)&__pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
-  __pyx_ptype_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile = &__pyx_type_3src_16files_management_10cython_src_15bmp_file_cython_20bmpfile_data_structs_PyBMPfile;
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyBMPfile, (PyObject *)&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile) < 0) __PYX_ERR(1, 7, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile) < 0) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_ptype_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile = &__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyBMPfile;
+  if (PyType_Ready(&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile.tp_dictoffset && __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyRDPfile, (PyObject *)&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
+  __pyx_ptype_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile = &__pyx_type_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2506,11 +3077,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initbmpfile_data_structs(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initbmpfile_data_structs(void)
+__Pyx_PyMODINIT_FUNC initbmp_rdp_files(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initbmp_rdp_files(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_bmpfile_data_structs(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_bmpfile_data_structs(void)
+__Pyx_PyMODINIT_FUNC PyInit_bmp_rdp_files(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_bmp_rdp_files(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -2577,7 +3148,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_bmpfile_data_structs(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_bmp_rdp_files(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -2589,7 +3160,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_bmpfile_data_structs(PyObject *__p
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'bmpfile_data_structs' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'bmp_rdp_files' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -2604,7 +3175,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_bmpfile_data_structs(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_bmp_rdp_files(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -2641,7 +3212,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("bmpfile_data_structs", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("bmp_rdp_files", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -2659,14 +3230,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_src__files_management__cython_src__bmp_file_cython__bmpfile_data_structs) {
+  if (__pyx_module_is_main_src__files_management__cython_bmp_rdp_files__bmp_rdp_files) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(1, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs")) {
-      if (unlikely(PyDict_SetItemString(modules, "src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs", __pyx_m) < 0)) __PYX_ERR(1, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "src.files_management.cython_bmp_rdp_files.bmp_rdp_files")) {
+      if (unlikely(PyDict_SetItemString(modules, "src.files_management.cython_bmp_rdp_files.bmp_rdp_files", __pyx_m) < 0)) __PYX_ERR(1, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -2687,10 +3258,10 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
 
-  /* "src/files_management/cython_src/bmp_file_cython/bmpfile_data_structs.pyx":1
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":1
  * # cython: language_level=3             # <<<<<<<<<<<<<<
  * 
- * from src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs cimport BMPfile
+ * from src.files_management.cython_bmp_rdp_files.bmp_rdp_files cimport RDPfile, BMPfile
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2712,11 +3283,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init src.files_management.cython_bmp_rdp_files.bmp_rdp_files", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs");
+    PyErr_SetString(PyExc_ImportError, "init src.files_management.cython_bmp_rdp_files.bmp_rdp_files");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3119,6 +3690,27 @@ bad:
     return;
 }
 #endif
+
+/* ArgTypeTest */
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+{
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    else if (exact) {
+        #if PY_MAJOR_VERSION == 2
+        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
+    }
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
+        name, type->tp_name, Py_TYPE(obj)->tp_name);
+    return 0;
+}
 
 /* PyObject_GenericGetAttrNoDict */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000

@@ -5,7 +5,8 @@ from libc.stdint cimport uint8_t
 from libc.stdint cimport uint32_t
 from libc.stdint cimport uint16_t
 
-cdef extern from "../../cpp_srcs/headers/BMPfile.h":
+
+cdef extern from "../cpp_srcs/headers/RDPfile.h":
 
     cdef cppclass pixel_24bpp:
         unsigned char blue
@@ -46,3 +47,11 @@ cdef extern from "../../cpp_srcs/headers/BMPfile.h":
         void print_values (int);
         void generate_point_file();
         void generate_bmp_file();
+
+    cdef cppclass RDPfile:
+        RDPfile(BMPfile &bmp, double epsilon_error) except +
+        BMPfile* bmp_
+        double epsilon_error_
+        double get_epsilon_error();
+        void generate_input_rdp_data();
+

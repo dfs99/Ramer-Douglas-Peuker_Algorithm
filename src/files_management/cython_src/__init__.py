@@ -1,1 +1,0 @@
-# from src.files_management.cython_src.bmpfile_data_struct import PyBMPfile

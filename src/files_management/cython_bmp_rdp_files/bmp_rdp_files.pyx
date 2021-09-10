@@ -1,11 +1,8 @@
 # cython: language_level=3
 
-from src.files_management.cython_src.bmp_file_cython.bmpfile_data_structs cimport BMPfile
-
+from src.files_management.cython_bmp_rdp_files.bmp_rdp_files cimport RDPfile, BMPfile
 from cython.operator cimport dereference as deref
 from libcpp.string cimport string
-from libcpp.vector cimport vector
-
 
 cdef class PyBMPfile:
     cdef BMPfile *cpp_bmp
@@ -36,15 +33,19 @@ cdef class PyBMPfile:
     def generate_bmp_file(self):
         deref(self.cpp_bmp).generate_bmp_file()
 
-        #int set_padding()
-        #bool is_exists(const std::string& path)
-        #std::string extract_filename_from_path()
-        #void get_data_buffer(std::vector<unsigned char>& buff)
-        #bool check_bmp_file()
-        #void init_header(std::vector<unsigned char>& buffer)
-        #void init_dib_header(std::vector<unsigned char>& buffer)
-        #void fetch_image(std::vector<unsigned char>& buffer)
 
-        #struct bitmap_header* get_header() const noexcept;
-        #struct pixel_24bpp** get_image_data() const noexcept;
-        #struct dib_header* get_detailed_header() const noexcept;
+cdef class PyRDPfile:
+    cdef RDPfile* cpp_rdp
+
+    def __cinit__(self, PyBMPfile file, double epsilon_error):
+        self.cpp_rdp = new RDPfile(deref(file.cpp_bmp), epsilon_error)
+
+    def __dealloc__(self):
+        del self.cpp_rdp
+
+    @property
+    def epsilon_error(self):
+        return deref(self.cpp_rdp).get_epsilon_error()
+
+    def generate_input_rdp_data(self):
+        deref(self.cpp_rdp).generate_input_rdp_data()

@@ -39,6 +39,6 @@ int main(){
     current_ptr = new BMPfile("../images/spain_map.bmp");
     current_ptr->generate_bmp_file();
     current_ptr->print_values(2);
-    std::cout << "fiiinn << std::endl;
+    std::cout << "fiiinn" << std::endl;
     return 0;
 }
