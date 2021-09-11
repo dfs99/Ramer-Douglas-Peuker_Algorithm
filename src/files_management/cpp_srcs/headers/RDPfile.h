@@ -2,6 +2,7 @@
 #define RDPFILE_H
 
 #include "BMPfile.h"
+#include <string>
 
 class RDPfile{
     public:
@@ -9,7 +10,7 @@ class RDPfile{
         ~RDPfile();
         double get_epsilon_error() const noexcept;
         BMPfile* get_bmp_file() const noexcept;
-        void generate_input_rdp_data();
+        std::string generate_input_rdp_data();
 
     private:
         BMPfile* bmp_;

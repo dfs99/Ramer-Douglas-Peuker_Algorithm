@@ -53,5 +53,5 @@ cdef extern from "../cpp_srcs/headers/RDPfile.h":
         BMPfile* bmp_
         double epsilon_error_
         double get_epsilon_error();
-        void generate_input_rdp_data();
+        string generate_input_rdp_data();
 

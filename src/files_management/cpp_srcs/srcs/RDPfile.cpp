@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <string>
 
 
 const char* RDP_EXCEPT_FAIL_TO_DELETE = "Error, A problem has occurred while deleting BMP aux file.";
@@ -13,7 +14,7 @@ RDPfile::~RDPfile(){ }
 double RDPfile::get_epsilon_error() const noexcept { return RDPfile::epsilon_error_; }
 BMPfile* RDPfile::get_bmp_file() const noexcept { return RDPfile::bmp_; }
 
-void RDPfile::generate_input_rdp_data(){
+std::string RDPfile::generate_input_rdp_data(){
 
     // generate input file.
     RDPfile::get_bmp_file()->generate_point_file();
@@ -41,4 +42,6 @@ void RDPfile::generate_input_rdp_data(){
     input.close();
 
     if (remove(input_filename.c_str()) != 0) throw RDPfileException(RDP_EXCEPT_FAIL_TO_DELETE);
+
+    return output_filename;
 }

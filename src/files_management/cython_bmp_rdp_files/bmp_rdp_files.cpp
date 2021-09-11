@@ -1045,6 +1045,38 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
         __Pyx__ArgTypeTest(obj, type, name, exact))
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
 
+/* IncludeCppStringH.proto */
+#include <string>
+
+/* decode_c_string_utf16.proto */
+static CYTHON_INLINE PyObject *__Pyx_PyUnicode_DecodeUTF16(const char *s, Py_ssize_t size, const char *errors) {
+    int byteorder = 0;
+    return PyUnicode_DecodeUTF16(s, size, errors, &byteorder);
+}
+static CYTHON_INLINE PyObject *__Pyx_PyUnicode_DecodeUTF16LE(const char *s, Py_ssize_t size, const char *errors) {
+    int byteorder = -1;
+    return PyUnicode_DecodeUTF16(s, size, errors, &byteorder);
+}
+static CYTHON_INLINE PyObject *__Pyx_PyUnicode_DecodeUTF16BE(const char *s, Py_ssize_t size, const char *errors) {
+    int byteorder = 1;
+    return PyUnicode_DecodeUTF16(s, size, errors, &byteorder);
+}
+
+/* decode_c_bytes.proto */
+static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
+
+/* decode_cpp_string.proto */
+static CYTHON_INLINE PyObject* __Pyx_decode_cpp_string(
+         std::string cppstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    return __Pyx_decode_c_bytes(
+        cppstring.data(), cppstring.size(), start, stop, encoding, errors, decode_func);
+}
+
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name);
@@ -2126,11 +2158,13 @@ static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_r
  *         return deref(self.cpp_rdp).get_epsilon_error()
  * 
  *     def generate_input_rdp_data(self):             # <<<<<<<<<<<<<<
- *         deref(self.cpp_rdp).generate_input_rdp_data()
+ *         """
+ *         returns the rdp_file name.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data[] = "\n        returns the rdp_file name.\n        ";
 static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2145,24 +2179,38 @@ static PyObject *__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_r
 static PyObject *__pyx_pf_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data(struct __pyx_obj_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("generate_input_rdp_data", 0);
 
-  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":51
- * 
- *     def generate_input_rdp_data(self):
- *         deref(self.cpp_rdp).generate_input_rdp_data()             # <<<<<<<<<<<<<<
+  /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":54
+ *         returns the rdp_file name.
+ *         """
+ *         return (deref(self.cpp_rdp).generate_input_rdp_data()).decode('utf-8')             # <<<<<<<<<<<<<<
  */
-  (*__pyx_v_self->cpp_rdp).generate_input_rdp_data();
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_decode_cpp_string((*__pyx_v_self->cpp_rdp).generate_input_rdp_data(), 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 54, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
   /* "src/files_management/cython_bmp_rdp_files/bmp_rdp_files.pyx":50
  *         return deref(self.cpp_rdp).get_epsilon_error()
  * 
  *     def generate_input_rdp_data(self):             # <<<<<<<<<<<<<<
- *         deref(self.cpp_rdp).generate_input_rdp_data()
+ *         """
+ *         returns the rdp_file name.
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("src.files_management.cython_bmp_rdp_files.bmp_rdp_files.PyRDPfile.generate_input_rdp_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -2761,7 +2809,7 @@ static PyObject *__pyx_getprop_3src_16files_management_20cython_bmp_rdp_files_13
 }
 
 static PyMethodDef __pyx_methods_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_PyRDPfile[] = {
-  {"generate_input_rdp_data", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data, METH_NOARGS, 0},
+  {"generate_input_rdp_data", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_5generate_input_rdp_data, METH_NOARGS, __pyx_doc_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_4generate_input_rdp_data},
   {"__reduce_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_7__reduce_cython__, METH_NOARGS, 0},
   {"__setstate_cython__", (PyCFunction)__pyx_pw_3src_16files_management_20cython_bmp_rdp_files_13bmp_rdp_files_9PyRDPfile_9__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
@@ -3710,6 +3758,33 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
         "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
         name, type->tp_name, Py_TYPE(obj)->tp_name);
     return 0;
+}
+
+/* decode_c_bytes */
+static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    if (unlikely((start < 0) | (stop < 0))) {
+        if (start < 0) {
+            start += length;
+            if (start < 0)
+                start = 0;
+        }
+        if (stop < 0)
+            stop += length;
+    }
+    if (stop > length)
+        stop = length;
+    if (unlikely(stop <= start))
+        return __Pyx_NewRef(__pyx_empty_unicode);
+    length = stop - start;
+    cstring += start;
+    if (decode_func) {
+        return decode_func(cstring, length, errors);
+    } else {
+        return PyUnicode_Decode(cstring, length, encoding, errors);
+    }
 }
 
 /* PyObject_GenericGetAttrNoDict */

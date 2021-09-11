@@ -48,4 +48,7 @@ cdef class PyRDPfile:
         return deref(self.cpp_rdp).get_epsilon_error()
 
     def generate_input_rdp_data(self):
-        deref(self.cpp_rdp).generate_input_rdp_data()
+        """
+        returns the rdp_file name.
+        """
+        return (deref(self.cpp_rdp).generate_input_rdp_data()).decode('utf-8')

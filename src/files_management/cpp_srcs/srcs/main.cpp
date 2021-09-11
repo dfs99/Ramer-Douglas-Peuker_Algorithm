@@ -26,7 +26,9 @@ int main(){
     auto start2 = std::chrono::system_clock::now();
     try{
         RDPfile generator (my_file1, 0.123);
-        generator.generate_input_rdp_data();
+        std::string name;
+        name = generator.generate_input_rdp_data();
+        cout << "NAME: " << name << std::endl;
     } catch (const exception & e) {
         cerr << e.what() << endl;
         return -1;

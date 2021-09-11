@@ -1,13 +1,22 @@
-RAMER DOUGLAS PEUKER ALGORITHM
+#!/bin/bash
+HELP_TEXT="
+******************************************************************************
 ==============================================================================
-  Requirements:
+                      RAMER DOUGLAS PEUKER ALGORITHM
+==============================================================================
+******************************************************************************
 
+
+==============================================================================
+  => Requirements:
+==============================================================================
     In order to use successfully the Ramer Douglas Peuker Algorithm, you must
     need to install python3 and
     #TODO CORREGIR PROBLEMAS MATPLOT LIB EN LINUX.
 
-  OPTIONS:
-
+==============================================================================
+  => OPTIONS:
+==============================================================================
     RamerDouglasPeukerAlgorithm [-h]
       -h: Shows the helper text.
 
@@ -39,9 +48,9 @@ RAMER DOUGLAS PEUKER ALGORITHM
                in the algorithm. Uses a text file that must contain the epsilon
                error, the total number of points and all the points.
 
-
-  FILES:
-
+==============================================================================
+  => FILES:
+==============================================================================
     bmp file: required @ -b and -f options. The bmp file must be 24bpp (bits
               per pixel) in order to work.
 
@@ -61,12 +70,59 @@ RAMER DOUGLAS PEUKER ALGORITHM
                   4-.) Repeated points will be ignored by default within the
                        algorithm.
 
-
-  PROBLEMS:
-
+==============================================================================
+  => PROBLEMS:
+==============================================================================
     The main problem you may face is parallel lines in both images and text
     files. If the two lines used to get the distance are parallel, they will
     never cut each other.
 
+******************************************************************************
+"
+USAGE_TEXT="Usage: RamerDouglasPeukerAlgorithm [-h] [-i] [-r] [-b file error] [-f file error] [-t file] [-x file]"
+NO_ARGS_TEXT="Error: No args introduced: \n"
 
+PYTHON=venv/bin/python3
+PYTHON_FILE=src/RamerDouglasPeuker_algorithm.py
 
+if [ $# -eq 0 ]; then
+  echo -e "$NO_ARGS_TEXT" "$USAGE_TEXT"
+  exit 1
+else
+  while getopts ":irhb:f:t:x" opt; do
+    case $opt in
+        i )
+            python3 -m venv venv
+            cd venv/
+            source bin/activate
+            cd ..
+            pip install -r requirements.txt
+            cp -R src venv/lib/python3.8/site-packages
+            exit 0;;
+        r )
+            rm -r venv/
+            exit 0;;
+        h ) echo "$HELP_TEXT"
+            exit 0;;
+        b )
+            shift
+            $PYTHON $PYTHON_FILE b $1 $2
+          ;;
+        f )
+            shift
+            $PYTHON $PYTHON_FILE f $1 $2
+          ;;
+        t ) echo "opt t"
+            shift
+            $PYTHON $PYTHON_FILE t $1
+          ;;
+        x )
+            shift
+            $PYTHON $PYTHON_FILE x $1
+          ;;
+        ? ) echo -e "ERROR:\n $USAGE_TEXT"
+             exit 1;;
+     esac
+done
+fi
+exit 0
