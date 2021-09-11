@@ -1,0 +1,4 @@
+=> Improve performance of gif generator. Limit aprox 300 points at rdp file (intel i5 4460)
+=> Check and finish tests for all the code.
+=> Do pylint
+=> Refactor code.

@@ -164,10 +164,12 @@ class Line:
         """
         # vertical
         if self.type == Line.LINE_TYPES[0]:
-            return Line.generate_perpendicular_line(reference_point, Point(self.point1.x, reference_point.y), None)
+            # generate horizontal line.
+            return Line.generate_perpendicular_line(reference_point, Point(self.point1.x+1, reference_point.y), None)
         # horizontal
         elif self.type == Line.LINE_TYPES[1]:
-            return Line.generate_perpendicular_line(reference_point, Point(reference_point.x, self.point1.y), None)
+            # generate vertical line
+            return Line.generate_perpendicular_line(reference_point, Point(reference_point.x, self.point1.y+1), None)
         # non-vertical
         elif self.type == Line.LINE_TYPES[2]:
             perpendicular_gradient = -1/self.gradient

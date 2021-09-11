@@ -107,12 +107,14 @@ else
         b )
             shift
             $PYTHON $PYTHON_FILE b $1 $2
+            # delete intermediary files.
+            rm -r rdp*.txt
           ;;
         f )
             shift
             $PYTHON $PYTHON_FILE f $1 $2
           ;;
-        t ) echo "opt t"
+        t )
             shift
             $PYTHON $PYTHON_FILE t $1
           ;;

@@ -3,8 +3,8 @@ RAMER DOUGLAS PEUKER ALGORITHM
   Requirements:
 
     In order to use successfully the Ramer Douglas Peuker Algorithm, you must
-    need to install python3 and
-    #TODO CORREGIR PROBLEMAS MATPLOT LIB EN LINUX.
+    need to install python3. If any problem arise while executing gif generator
+    check Problems section.
 
   OPTIONS:
 
@@ -67,6 +67,10 @@ RAMER DOUGLAS PEUKER ALGORITHM
     The main problem you may face is parallel lines in both images and text
     files. If the two lines used to get the distance are parallel, they will
     never cut each other.
+    
+    Another problem may arise when generating gif is not to have a GUI backend.
+    The solution I've found is to install tkinter. 
+        sudo apt-get install python3-tk
 
 
 

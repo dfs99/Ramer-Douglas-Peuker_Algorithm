@@ -4,16 +4,11 @@ from src.data import Point
 from src.files_management import Parser
 from src.data import RamerDouglasPeukerPainter
 from src.data import RamerDouglasPeukerAlgorithm
-from src.exceptions import ParserException
+from src.exceptions import ParserException, LineException
 # Import Python Objects created through Cython.
 # Already compiled files.
 from bmp_rdp_files import PyBMPfile, PyRDPfile
 
-
-# TODO: opcion probada y funcionando f
-# bash RamerDouglasPeukerAlgorithm.sh -f src/files_management/cpp_srcs/images/prueba8.bmp 1.4
-#       opcion probada y funcionando x
-# bash RamerDouglasPeukerAlgorithm.sh -x rdp_data_prueba8.txt
 
 OPTIONS_FLAGS = {
     'b': 2,
@@ -72,6 +67,7 @@ def solve_and_generate_gif(alg_inst: RamerDouglasPeukerAlgorithm,
     the process it took to perform the simplification.
     """
     alg_inst.plot_solver(0, len(alg_inst.data_set) - 1)
+    alg_inst.solution.sort(key=Point.order_points_y_coord)
     alg_inst.solution.sort(key=Point.order_points_x_coord)
     # Generate gif.
     painter = RamerDouglasPeukerPainter(
@@ -79,8 +75,7 @@ def solve_and_generate_gif(alg_inst: RamerDouglasPeukerAlgorithm,
         alg_inst.data_set,
         alg_inst.solution
     )
-    # TODO: Se le puede pasar la velocidad a la que
-    # se genera el gif.
+
     painter.generate_animation(
         path_to_store,
         file_name[:file_name.find('.')] + "_gif_result",
@@ -158,4 +153,3 @@ def main(args: list):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
-
